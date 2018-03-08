@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%= yield(:title) %></title>
+	<%= csrf_meta_tags %>
+
+	<%= stylesheet_link_tag    'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' %>
+	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+</head>
+<body>
+	<nav class="navbar navbar-expand navbar-dark bg-dark">
+		<%= link_to "Dziennik", home_path, :class => 'navbar-brand' %>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarsExample02">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><%= link_to "Strona główna", home_path %></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+		<%= yield %>
+	</div>
+</body>
+</html>
