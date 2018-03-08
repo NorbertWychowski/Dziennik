@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  grade: 1
+  grade: MyString
   weight: 1
   student: one
   subject: one
 
 two:
-  grade: 1
+  grade: MyString
   weight: 1
   student: two
   subject: two
