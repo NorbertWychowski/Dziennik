@@ -1,20 +1,20 @@
 Rails.application.routes.draw do
-	root 'groups#index', as: 'home'
+  root 'groups#index', as: 'home'
 
-	#get 'groups/index'
+  #get 'groups/index'
 
-	#get 'groups/show'
+  #get 'groups/show'
 
   get 'students/new', to: 'students#new'
-	get 'students/:id', to: 'students#show'
+  get 'students/:id', to: 'students#show'
 
-	resources :groups do
-		resources :students
-	end
+  resources :groups do
+    resources :students
+  end
 
-	resources :students do
-		resources :grades
-	end
+  resources :students do
+    resources :grades
+  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
