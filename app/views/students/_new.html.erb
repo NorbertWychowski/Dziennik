@@ -1,15 +1,15 @@
 <h3>Dodaj ucznia</h3>
 <%= form_for([@group, @group.students.build]) do |f| %>
 
-<p>
-	<%= f.label :firstName, "Imię" %><br>
-	<%= f.text_field(:firstName, {:class => 'form-control'}) %>
-</p>
-<p>
-	<%= f.label :lastName, "Nazwisko" %><br>
-	<%= f.text_field(:lastName, {:class => 'form-control'}) %>
-</p>
-<p>
-	<%= f.submit({:class => 'btn btn-primary', :value => "Dodaj ucznia"}) %>
-</p>
+  <p>
+    <%= f.label :firstName, "Imię" %><br>
+    <%= f.text_field(:firstName, {:class => 'form-control'}) %>
+  </p>
+  <p>
+    <%= f.label :lastName, "Nazwisko" %><br>
+    <%= f.text_field(:lastName, {:class => 'form-control'}) %>
+  </p>
+  <p>
+    <%= f.submit({:class => 'btn btn-primary', :value => "Dodaj ucznia"}) %>
+  </p>
 <% end %>

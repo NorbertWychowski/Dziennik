@@ -1,19 +1,19 @@
 <h1>Stwórz grupę</h1>
 <%= form_for :group, url: groups_path do |f| %>
-<% if @group.errors.any? %>
-	<% @group.errors.full_messages.each do |msg| %>
-		<div class="alert alert-danger"><%= msg %></div>
-	<% end %>
-<% end %>
-<p>
-	<%= f.label :year, "Klasa" %><br>
-	<%= f.text_field(:year, {:class => 'form-control'}) %>
-</p>
-<p>
-	<%= f.label :groupID, "Nazwa grupy" %><br>
-	<%= f.text_field(:groupID, {:class => 'form-control'}) %>
-</p>
-<p>
-	<%= f.submit({:class => 'btn btn-primary', :value => "Dodaj klasę"}) %>
-</p>
+  <% if @group.errors.any? %>
+    <% @group.errors.full_messages.each do |msg| %>
+      <div class="alert alert-danger"><%= msg %></div>
+    <% end %>
+  <% end %>
+  <p>
+    <%= f.label :year, "Klasa" %><br>
+    <%= f.text_field(:year, {:class => 'form-control'}) %>
+  </p>
+  <p>
+    <%= f.label :groupID, "Nazwa grupy" %><br>
+    <%= f.text_field(:groupID, {:class => 'form-control'}) %>
+  </p>
+  <p>
+    <%= f.submit({:class => 'btn btn-primary', :value => "Dodaj klasę"}) %>
+  </p>
 <% end %>
