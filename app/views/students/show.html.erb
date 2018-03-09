@@ -1,14 +1,14 @@
 <h3>Uczeń: <%= @student.firstName + " " + @student.lastName %></h3>
 <div class="well">
-  <strong><p>Przedmioty:</p></strong>
-  <% Subject.all.each do |s| %>
-    <%= s.subjectName %><br>
-    <div class="well">
-      <% @grades.each do |g| %>
-        <% if (s == g.subject) %>
-          <%= g.grade %>
-        <% end %>
-      <% end %>
-    </div>
-  <% end %>
+	<strong><p>Przedmioty:</p></strong>
+	<% Subject.all.each do |s| %>
+		<%= s.subjectName %><br>
+		<div class="well">
+		<% @student.grades.each do |g| %>
+			<% if(s.subjectName.eql? g.subject.subjectName) %>
+				<%= g.grade %>
+			<% end %>
+		<% end %>
+		</div>
+	<% end %>
 </div>
