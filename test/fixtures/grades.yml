@@ -2,12 +2,16 @@
 
 one:
   grade: MyString
-  weight: 1
-  student: one
+  info: MyString
+  obtainedDate: 2018-03-09
   subject: one
+  student: one
+  teacher: one
 
 two:
   grade: MyString
-  weight: 1
-  student: two
+  info: MyString
+  obtainedDate: 2018-03-09
   subject: two
+  student: two
+  teacher: two

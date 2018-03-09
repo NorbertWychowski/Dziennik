@@ -1,13 +1,13 @@
 <head>
-	<% content_for :title, "Dziennik" %>
+  <% content_for :title, "Dziennik" %>
 </head>
 
 <body>
-	<h1>Grupy</h1>
-	<% @groups.each do |group| %>
-		<div class="well">
-			<h3><%= group.year %>-<%= group.groupID %></h3>
-			<%= link_to "Pokaż grupę", group_path(group), :class => 'btn btn-default' %>
-		</div>
-	<% end %>
+<h1>Grupy</h1>
+<% @groups.each do |group| %>
+  <div class="well">
+    <h3><%= group.groupName %></h3>
+    <%= link_to "Pokaż grupę", group_path(group), :class => 'btn btn-default' %>
+  </div>
+<% end %>
 </body>

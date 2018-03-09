@@ -3,9 +3,17 @@
 one:
   firstName: MyString
   lastName: MyString
+  phone: MyString
+  email: MyString
+  login: MyString
+  password: MyString
   group: one
 
 two:
   firstName: MyString
   lastName: MyString
+  phone: MyString
+  email: MyString
+  login: MyString
+  password: MyString
   group: two

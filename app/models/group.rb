@@ -1,5 +1,4 @@
 class Group < ApplicationRecord
-	has_many :students
-	validates :year, numericality: true
-	validates :groupID, presence: true
+  has_many :students
+  has_many :teacher_group_subjects
 end

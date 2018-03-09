@@ -5,7 +5,8 @@ Rails.application.routes.draw do
 
 	#get 'groups/show'
 
-	get '/students/:id', to: 'students#show', as: 'student'
+  get 'students/new', to: 'students#new'
+	get 'students/:id', to: 'students#show'
 
 	resources :groups do
 		resources :students
@@ -14,8 +15,6 @@ Rails.application.routes.draw do
 	resources :students do
 		resources :grades
 	end
-
-	resources :subjects
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
