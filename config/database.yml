@@ -15,7 +15,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: sql11227384
   password: 28ggnYEK2V
-  host: sql11.freemysqlhosting.netć
+  host: sql11.freemysqlhosting.net
   port: 3306
 
 development:
