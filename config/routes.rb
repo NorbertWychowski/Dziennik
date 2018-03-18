@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
-  root 'groups#index', as: 'home'
+  root 'static_pages#home'
 
-  #get 'groups/index'
-
-  #get 'groups/show'
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
 
   get 'students/new', to: 'students#new'
   get 'students/:id', to: 'students#show'
+
+  resource :sessions
 
   resources :groups do
     resources :students

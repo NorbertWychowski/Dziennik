@@ -1,0 +1,15 @@
+<% content_for :title, "Logowanie" %>
+<%= form_for(:session, url: login_path) do |f| %>
+  <div class="container-fluid">
+    <div class="container container-login container-radius container-shadow bg-light">
+      <h1 class="display-5" align="center" style="margin-bottom: 20px">Logowanie</h1>
+      <div class="wrapper wrapper-login">
+        <form class="form-signin">
+          <%= f.text_field :login, :class => 'form-control', placeholder: "Użytkownik", required: '', autofocus: '' %>
+          <%= f.password_field :password_digest, :class => 'form-control', placeholder: "Hasło", required: '' %>
+          <%= f.submit "Zaloguj się", :class => 'btn btn-lg btn-primary btn-block' %>
+        </form>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -18,10 +18,10 @@ ActiveRecord::Schema.define(version: 20180309171112) do
     t.date "obtainedDate"
     t.bigint "subject_id"
     t.bigint "student_id"
-    t.bigint "teacher_id"
+    t.bigint "user_id"
     t.index ["student_id"], name: "index_grades_on_student_id"
     t.index ["subject_id"], name: "index_grades_on_subject_id"
-    t.index ["teacher_id"], name: "index_grades_on_teacher_id"
+    t.index ["user_id"], name: "index_grades_on_user_id"
   end
 
   create_table "groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -29,14 +29,10 @@ ActiveRecord::Schema.define(version: 20180309171112) do
   end
 
   create_table "students", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "firstName"
-    t.string "lastName"
-    t.string "phone"
-    t.string "email"
-    t.string "login"
-    t.string "password"
+    t.bigint "user_id"
     t.bigint "group_id"
     t.index ["group_id"], name: "index_students_on_group_id"
+    t.index ["user_id"], name: "index_students_on_user_id"
   end
 
   create_table "subjects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -44,29 +40,36 @@ ActiveRecord::Schema.define(version: 20180309171112) do
   end
 
   create_table "teacher_group_subjects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "teacher_id"
+    t.bigint "user_id"
     t.bigint "group_id"
     t.bigint "subject_id"
     t.index ["group_id"], name: "index_teacher_group_subjects_on_group_id"
     t.index ["subject_id"], name: "index_teacher_group_subjects_on_subject_id"
-    t.index ["teacher_id"], name: "index_teacher_group_subjects_on_teacher_id"
+    t.index ["user_id"], name: "index_teacher_group_subjects_on_user_id"
   end
 
-  create_table "teachers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "user_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "userType"
+  end
+
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "firstName"
     t.string "lastName"
     t.string "phone"
     t.string "email"
-    t.boolean "isAdmin"
     t.string "login"
-    t.string "password"
+    t.string "password_digest"
+    t.bigint "user_type_id"
+    t.index ["user_type_id"], name: "index_users_on_user_type_id"
   end
 
   add_foreign_key "grades", "students"
   add_foreign_key "grades", "subjects"
-  add_foreign_key "grades", "teachers"
+  add_foreign_key "grades", "users"
   add_foreign_key "students", "groups"
+  add_foreign_key "students", "users"
   add_foreign_key "teacher_group_subjects", "groups"
   add_foreign_key "teacher_group_subjects", "subjects"
-  add_foreign_key "teacher_group_subjects", "teachers"
+  add_foreign_key "teacher_group_subjects", "users"
+  add_foreign_key "users", "user_types"
 end

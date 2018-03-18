@@ -13,21 +13,143 @@
  *= require_tree .
  *= require_self
  */
- .well { 
- 	min-height: 20px;
- 	padding: 19px;
- 	margin-bottom: 20px;
- 	background-color: #f5f5f5;
- 	border: 1px solid #e3e3e3;
- 	border-radius: 4px;
- 	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
- 	box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
- }
- .btn-default{
- 	color: #333;
- 	background-color: #fff;
- 	border-color: #ccc;
- }
- .nav-item {
- 	margin-right: 5px;
- }
+/* Bootstrap style extension */
+
+/* Main */
+/* Bootstrap style extension */
+
+/* Main */
+body {
+    background: #eee url("background.jpg") no-repeat fixed top;
+}
+
+/* Navbar */
+.navbar {
+    padding: 20px;
+    margin-bottom: 50px;
+}
+
+.nav-login {
+    color: #eee;
+}
+
+/* Main containers */
+.container-radius {
+    border-radius: 15px;
+}
+
+.container-shadow {
+    box-shadow: 1px 1px 5px gray;
+}
+
+.container-padding-small {
+    padding: 30px;
+}
+
+.container-padding-normal {
+    padding: 40px;
+}
+
+.container-padding-big {
+    padding: 50px;
+}
+
+.row-title {
+    background-color: gray;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* Login page */
+.form-control {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.container-login {
+    padding: 50px;
+    max-width: 900px;
+    margin: 8% auto auto;
+}
+
+.wrapper-login {
+    max-width: 500px;
+    margin: auto;
+}
+
+/* Footer */
+.container-footer {
+    margin-top: 20px;
+    padding: 10px;
+    bottom: 10px;
+    color: #eee;
+}
+
+.footer-absolute {
+    position: absolute;
+}
+
+/* Container header */
+ul.container-header {
+    display: inline-table;
+}
+
+li.container-header {
+    display: inline-table;
+    list-style: none;
+    margin-left: 10px;
+}
+
+/* Grades list */
+ul.grade-list {
+    display: inline-table;
+}
+
+li.grade-list {
+    margin-right: 10px;
+    display: inline-table;
+    list-style: none;
+}
+
+kbd.happy {
+    background-color: #FF9800;
+}
+
+a.grade-action {
+    color: #eee;
+    text-decoration: none;
+}
+
+a.grade-action:hover {
+    color: gray;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Grades colors */
+.grade {
+    color: #fff;
+}
+
+.grade-6 {
+    background-color: #0277BD;
+}
+
+.grade-5 {
+    background-color: #1B5E20;
+}
+
+.grade-4 {
+    background-color: #8BC34A;
+}
+
+.grade-3 {
+    background-color: #FF9800;
+}
+
+.grade-2 {
+    background-color: #FF5722;
+}
+
+.grade-1 {
+    background-color: #D32F2F;
+}

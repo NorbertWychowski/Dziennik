@@ -4,27 +4,63 @@
   <title><%= yield(:title) %></title>
   <%= csrf_meta_tags %>
 
-  <%= stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' %>
+  <%= stylesheet_link_tag 'bootstrap', media: 'all', 'data-turbolinks-track' => true %>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'https://code.jquery.com/jquery-3.2.1.slim.min.js',
+                             integrity: 'sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN',
+                             crossorigin: 'anonymous', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js',
+                             integrity: 'sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q',
+                             crossorigin: 'anonymous', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js',
+                             integrity: 'sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl',
+                             crossorigin: 'anonymous', 'data-turbolinks-track' => true %>
 </head>
 <body>
-<nav class="navbar navbar-expand navbar-dark bg-dark">
-  <%= link_to "Dziennik", home_path, :class => 'navbar-brand' %>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarsExample02">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active"><%= link_to "Strona główna", home_path %></li>
-      <li class="nav-item active"><%= link_to "Dodaj klasę", new_group_path %></li>
-      <li class="nav-item active"><%= link_to "Dodaj ucznia", new_student_path %></li>
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container-fluid">
+    <%= link_to "e-Dziennik", root_path, :class => 'navbar-brand' %>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <% link_to "Strona główna", root_path, :class => 'nav-link' %>
+        </li>
+        <li class="nav-item active"><a class="nav-link" href="glowna-zalogowane.html">Panel po
+          zalogowaniu<span class="sr-only">(current)</span></a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Uczeń</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="uczen-oceny.html">Oceny (uczeń)</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Nauczyciel</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="nauczyciel-oceny-uczen.html">Oceny (uczeń)</a>
+            <a class="dropdown-item " href="nauczyciel-oceny-klasa-przedmiot.html">Oceny (klasa i przedmiot)</a>
+            <a class="dropdown-item " href="nauczyciel-klasy.html">Klasy</a>
+          </div>
+        </li>
+      </ul>
+      <% if current_user.nil? %>
+        <%= link_to "Zaloguj się", login_path, :class => 'btn btn-outline-light' %>
+      <% else %>
+        <p class="nav-login">Zalogowano jako: <b><%= current_user.firstName + " " + current_user.lastName %> </b></p>
+      <% end %>
+    </div>
   </div>
 </nav>
 <div class="container">
   <%= yield %>
+</div>
+<div class="container-fluid container-footer">
+  <div class="container">
+    <p align="center">e-Dziennik / Programowanie aplikacji internetowych 2</p>
+  </div>
 </div>
 </body>
 </html>
