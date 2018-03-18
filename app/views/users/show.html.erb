@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <div class="container container-radius container-shadow container-padding-small bg-light">
+    <h4 class="float-left font-weight-light">Twoje zajęcia</h4>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Klasa</th>
+          <th scope="col">Przedmiot</th>
+          <th scope="col">Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% TeacherGroupSubject.all.where(user: @user).each do |g| %>
+          <tr>
+            <td><%= g.group.groupName %></td>
+            <td><%= g.subject.subjectName %></td>
+            <td>
+              <ul class="grade-list">
+                <li class="grade-list"><kbd class="badge">
+                  <%= link_to "Zobacz klasę",
+                              {:action => "user_groups", :controller => "users", :id => @user, :teacher_group_subject => g},
+                              :class => 'modal-action' %>
+                </kbd></li>
+                <li class="grade-list"><kbd class="badge">
+                  <%= link_to "Zobacz przedmiot",
+                              {:action => "user_groups", :controller => "users", :id => @user, :teacher_group_subject => g},
+                              :class => 'modal-action' %>
+                </kbd>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

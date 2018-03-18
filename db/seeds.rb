@@ -13,7 +13,7 @@ user_type = UserType.create([{userType: 'Admin'}, {userType: 'Nauczyciel'}, {use
 users = User.create([{firstName: 'Adam', lastName: 'Adminowy', phone: '123-444-567', email: 'admin125@gmail.com', login: 'admin', password_digest: BCrypt::Password.create('admin'), user_type: user_type[0]},
                      {firstName: 'Anna', lastName: 'Nowak', phone: '555-444-333', email: 'n123@gmail.com', login: 'nauczyciel01', password_digest: BCrypt::Password.create('nauczyciel'), user_type: user_type[1]},
                      {firstName: 'Anna', lastName: 'Kowalska', phone: '555-444-333', email: 'n124@gmail.com', login: 'nauczyciel02', password_digest: BCrypt::Password.create('nauczyciel'), user_type: user_type[1]},
-                     {firstName: 'Katarzyna', lastName: 'Nowak', phone: '555-444-333', email: 'n125@gmail.com', login: 'nauczyciel02', password_digest: BCrypt::Password.create('nauczyciel'), user_type: user_type[1]},
+                     {firstName: 'Katarzyna', lastName: 'Nowak', phone: '555-444-333', email: 'n125@gmail.com', login: 'nauczyciel03', password_digest: BCrypt::Password.create('nauczyciel'), user_type: user_type[1]},
                      {firstName: 'Jan', lastName: 'Nowak', phone: '555-444-333', email: '123@gmail.com', login: 'student01', password_digest: BCrypt::Password.create('student'), user_type: user_type[2]},
                      {firstName: 'Tomasz', lastName: 'Nowak', phone: '555-444-333', email: '1234@gmail.com', login: 'student02', password_digest: BCrypt::Password.create('student'), user_type: user_type[2]},
                      {firstName: 'Adam', lastName: 'Kowalski', phone: '555-444-333', email: '234@gmail.com', login: 'student03', password_digest: BCrypt::Password.create('student'), user_type: user_type[2]},

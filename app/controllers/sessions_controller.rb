@@ -8,8 +8,10 @@ class SessionsController < ApplicationController
       log_in(user)
       if user.user_type_id == 3
         redirect_to student_url(user)
+      elsif user.user_type_id == 2
+        redirect_to user_url(user)
       else
-        redirect_to root_path
+        redirect_to root
       end
     else
       render 'new'

@@ -19,6 +19,9 @@
 /* Bootstrap style extension */
 
 /* Main */
+/* Bootstrap style extension */
+
+/* Main */
 body {
     background: #eee url("background.jpg") no-repeat fixed top;
 }
@@ -97,7 +100,7 @@ ul.container-header {
 li.container-header {
     display: inline-table;
     list-style: none;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 /* Grades list */
@@ -115,13 +118,15 @@ kbd.happy {
     background-color: #FF9800;
 }
 
-a.grade-action {
+.modal-action, .modal-action:visited {
     color: #eee;
     text-decoration: none;
+    border: none;
 }
 
-a.grade-action:hover {
+.modal-action:hover {
     color: gray;
+    text-decoration: none;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
@@ -152,4 +157,17 @@ a.grade-action:hover {
 
 .grade-1 {
     background-color: #D32F2F;
+}
+
+/* Fonts */
+.display-5 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+.display-6 {
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: 1.2;
 }

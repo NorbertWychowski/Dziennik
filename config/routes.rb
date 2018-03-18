@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
   root 'static_pages#home'
 
+  #logowanie
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
 
-  get 'students/new', to: 'students#new'
-  get 'students/:id', to: 'students#show'
+  #nauczyciele
+  resources :users
+  get 'users/:id/:teacher_group_subject', to: 'users#user_groups', as: 'users_groups'
 
   resource :sessions
 
