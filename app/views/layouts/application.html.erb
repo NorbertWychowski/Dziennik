@@ -49,7 +49,10 @@
       <% if current_user.nil? %>
         <%= link_to "Zaloguj się", login_path, :class => 'btn btn-outline-light' %>
       <% else %>
-        <p class="nav-login">Zalogowano jako: <b><%= current_user.firstName + " " + current_user.lastName %> </b></p>
+        <p class="nav-login">
+          Zalogowano jako: <b><%= current_user.firstName + " " + current_user.lastName %></b> /
+          <%= link_to "Wyloguj się", logout_path, :class => 'nav-login', method: :delete %>
+        </p>
       <% end %>
     </div>
   </div>

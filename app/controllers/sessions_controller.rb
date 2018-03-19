@@ -14,7 +14,8 @@ class SessionsController < ApplicationController
         redirect_to root
       end
     else
-      render 'new'
+      flash.now[:danger] = "Podano nieprawidłowe hasło lub nazwę użytkownika"
+      render :action => 'new'
     end
   end
 
