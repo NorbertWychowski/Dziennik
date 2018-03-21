@@ -10,13 +10,25 @@ Rails.application.routes.draw do
   resources :users
   get 'users/:id/:teacher_group_subject', to: 'users#user_groups', as: 'users_groups'
 
+  #uczniowe
+  resources :students do
+    resources :grades
+  end
+
+  #sesja
   resource :sessions
+
+  #oceny
+  post 'add_grade', to: 'grade#add_grade'
+  resources :grades
+
+
 
   resources :groups do
     resources :students
   end
 
-  resources :students do
+  resources :users do
     resources :grades
   end
 

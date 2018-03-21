@@ -4,43 +4,6 @@
         $('[data-toggle="tooltip"]').tooltip()
     })
 </script>
-<div class="modal fade" id="addGrade" tabindex="-1" role="dialog" aria-labelledby="addGradeLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addGradeLabel">Dodaj ocenę</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Cofnij">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label for="gradeSelect">Wybierz ocenę</label>
-          <select class="form-control" id="gradeSelect">
-            <option>1</option>
-            <option>1+</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="gradeSelect">Wybierz typ oceny</label>
-          <select class="form-control" id="gradeTypeSelect" title="">
-            <option>Sprawdzian</option>
-            <option>Kartkówka</option>
-          </select>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cofnij</button>
-        <button type="button" class="btn btn-primary">Dodaj ocenę</button>
-      </div>
-    </div>
-  </div>
-</div>
 <div class="container-fluid">
   <div class="container container-radius container-shadow container-padding-small bg-light">
     <h4 class="float-left font-weight-light">Lista ocen</h4>
@@ -48,7 +11,8 @@
       <li class="container-header"><h4 class="font-weight-light">Przedmiot:
         <kbd class="badge-dark"><%= @teacher_group_subject.subject.subjectName %></kbd></h4></li>
       <li class="container-header">
-        <h4 class="font-weight-light">Klasa: <kbd class="badge-dark"><%= @teacher_group_subject.group.groupName %></kbd>
+        <h4 class="font-weight-light">Klasa:
+          <kbd class="badge-dark"><%= @teacher_group_subject.group.groupName %></kbd>
         </h4></li>
     </ul>
     <div class="table-responsive">
@@ -65,41 +29,56 @@
         </thead>
         <tbody>
         <% @teacher_group_subject.group.students.all.each do |student| %>
-          <% avg = 0.0 %>
-          <% i = 0 %>
-          <tr>
-            <td><kbd class="badge"><%= student.id %></kbd></td>
-            <td scope="row"><%= student.user.firstName %></td>
-            <td scope="row"><%= student.user.lastName %></td>
-            <td>
-              <ul class="grade-list">
-                <% student.grades.where(subject: @teacher_group_subject.subject).all.each do |g| %>
-                  <li class="grade-list"><span data-toggle="tooltip" data-placement="top" title=<%= g.info %>>
+          <%= form_for Grade.new do |g| %>
+            <%= g.hidden_field :obtainedDate, :value => Time.now %>
+            <%= g.hidden_field :subject_id, :value => @teacher_group_subject.subject.id %>
+            <%= g.hidden_field :student_id, :value => student.id %>
+            <%= g.hidden_field :user_id, :value => current_user.id %>
+
+            <% avg = 0.0 %>
+            <% i = 0 %>
+            <tr>
+              <td><kbd class="badge"><%= student.id %></kbd></td>
+              <td scope="row"><%= student.user.firstName %></td>
+              <td scope="row"><%= student.user.lastName %></td>
+              <td>
+                <ul class="grade-list">
+                  <% student.grades.where(subject: @teacher_group_subject.subject).all.each do |g| %>
+                    <li class="grade-list"><span data-toggle="tooltip" data-placement="top" title=<%= g.info %>>
                   <%= label_tag 'grade', g.grade, :class => 'badge grade grade-' + g.grade.chars.last %></span>
+                    </li>
+                    <% avg += Grade.gradeValues(g.grade) %>
+                    <% i += 1.0 %>
+                  <% end %>
+                </ul>
+              </td>
+              <td>
+                <span class="badge badge-secondary"><%= ((avg / i).nan? ? "Brak ocen" : (avg / i).round(2)) %></span>
+              </td>
+              <td>
+                <ul class="grade-list">
+                  <li class="grade-list">
+                    <kbd class="badge badge-dark">
+                      <%= link_to "Dodaj ocenę", nil, {:class => 'modal-action', 'data-toggle' => 'modal', 'data-target' => '#addGrade'} %>
+                    </kbd>
                   </li>
-                  <% avg += Grade.gradeValues(g.grade) %>
-                  <% i += 1.0 %>
-                <% end %>
-              </ul>
-            </td>
-            <td>
-              <span class="badge badge-secondary"><%= ((avg / i).nan? ? "Brak ocen" : (avg / i).round(2)) %></span>
-            </td>
-            <td>
-              <ul class="grade-list">
-                <li class="grade-list">
-                  <kbd class="badge badge-dark"><a class="modal-action" data-toggle="modal" data-target="#addGrade" href="#">Dodaj
-                    ocenę</a></kbd></li>
-                <li class="grade-list">
-                  <kbd class="badge badge-dark"><a class="modal-action" href="#">Edytuj oceny</a></kbd></li>
-                <li class="grade-list">
-                  <kbd class="badge badge-dark"><a class="modal-action" href="#">Zobacz ucznia</a></kbd></li>
-              </ul>
-            </td>
-          </tr>
+                  <li class="grade-list">
+                    <kbd class="badge badge-dark"> <a class="modal-action" href="#"> Edytuj oceny </a></kbd>
+                  </li>
+                  <li class="grade-list">
+                    <kbd class="badge badge-dark">
+                      <%= link_to "Zobacz ucznia", student_url(student.user_id), {:class => 'modal-action'} %>
+                    </kbd>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+            <%= render partial: 'grades/add_grade', locals: {g: g} %>
+          <% end %>
         <% end %>
         </tbody>
       </table>
     </div>
   </div>
 </div>
+
