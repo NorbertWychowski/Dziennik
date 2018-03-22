@@ -1,4 +1,12 @@
 class UsersController < ApplicationController
+  before_action :requires_permission
+
+  private def requires_permission
+    unless params[:id].to_i == current_user.id or current_user.user_type_id == 1
+      redirect_to '/403'
+    end
+  end
+
   def show
     @user = User.find(params[:id])
   end

@@ -2,15 +2,25 @@
 <%= form_for(:session, url: login_path) do |f| %>
   <div class="container-fluid">
     <div class="container container-login container-radius container-shadow bg-light">
-      <h1 class="display-5" align="center" style="margin-bottom: 20px">Logowanie</h1>
+      <h1 class="display-5" align="center" style="margin-bottom: 20px">
+        <% if current_user.nil? %>
+          Logowanie
+        <% else %>
+          Jesteś już zalogowany
+        <% end %>
+      </h1>
       <div class="wrapper wrapper-login">
         <form class="form-signin">
-          <%= f.text_field :login, :class => 'form-control', placeholder: "Użytkownik", required: '', autofocus: '' %>
-          <%= f.password_field :password_digest, :class => 'form-control', placeholder: "Hasło", required: '' %>
-          <%= f.submit "Zaloguj się", :class => 'btn btn-lg btn-primary btn-block' %>
-          <br>
-          <% flash.each do |_, value| %>
-            <div class='alert alert-danger'><%= value %></div>
+          <% if current_user.nil? %>
+            <%= f.text_field :login, class: 'form-control', placeholder: "Użytkownik", required: '', autofocus: '' %>
+            <%= f.password_field :password_digest, class: 'form-control', placeholder: "Hasło", required: '' %>
+            <%= f.submit "Zaloguj się", class: 'btn btn-lg btn-primary btn-block' %>
+            <br>
+            <% flash.each do |_, value| %>
+              <div class='alert alert-danger'><%= value %></div>
+            <% end %>
+          <% else %>
+            <%= link_to "Wyloguj się", logout_path, :class => 'btn btn-lg btn-primary btn-block', method: :delete %>
           <% end %>
         </form>
       </div>

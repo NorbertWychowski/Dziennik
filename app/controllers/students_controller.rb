@@ -14,7 +14,7 @@ class StudentsController < ApplicationController
   def create
     @student = Student.create(student_params)
 
-    redirect_to home_path
+    redirect_to root_path
   end
 
   def destroy

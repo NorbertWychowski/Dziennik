@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'errors/forbidden'
+
+  get 'error/forbidden'
+
   get 'static_pages/home'
 
   root 'static_pages#home'
@@ -24,7 +28,10 @@ Rails.application.routes.draw do
   post 'add_grade', to: 'grade#add_grade'
   resources :grades
 
-
+  #kody bledu
+  match '/403', to: 'errors#forbidden', via: :all
+  match '/404', to: 'errors#not_found', via: :all
+  match '/500', to: 'errors#internal_server_error', via: :all
 
   resources :groups do
     resources :students

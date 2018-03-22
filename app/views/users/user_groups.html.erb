@@ -1,8 +1,11 @@
-<% content_for :title, @teacher_group_subject.subject.subjectName + " - " + @user.firstName + " " + @user.lastName %>
+<% content_for :title, @teacher_group_subject.subject.subjectName + " - " + @teacher_group_subject.group.groupName %>
 <script>
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })
+    $(function () {
+        $('[data-toggle="popover"]').popover();
+    });
 </script>
 <div class="container-fluid">
   <div class="container container-radius container-shadow container-padding-small bg-light">
@@ -29,12 +32,7 @@
         </thead>
         <tbody>
         <% @teacher_group_subject.group.students.all.each do |student| %>
-          <%= form_for Grade.new do |g| %>
-            <%= g.hidden_field :obtainedDate, :value => Time.now %>
-            <%= g.hidden_field :subject_id, :value => @teacher_group_subject.subject.id %>
-            <%= g.hidden_field :student_id, :value => student.id %>
-            <%= g.hidden_field :user_id, :value => current_user.id %>
-
+          <%= form_for Grade.new do |add_grade_it| %>
             <% avg = 0.0 %>
             <% i = 0 %>
             <tr>
@@ -44,8 +42,10 @@
               <td>
                 <ul class="grade-list">
                   <% student.grades.where(subject: @teacher_group_subject.subject).all.each do |g| %>
-                    <li class="grade-list"><span data-toggle="tooltip" data-placement="top" title=<%= g.info %>>
-                  <%= label_tag 'grade', g.grade, :class => 'badge grade grade-' + g.grade.chars.last %></span>
+                    <li class="grade-list">
+                      <span data-toggle="tooltip" data-placement="top" title=<%= g.info %>>
+                        <%= label_tag 'grade', g.grade, class: 'badge grade grade-' + g.grade.chars.last %>
+                      </span>
                     </li>
                     <% avg += Grade.gradeValues(g.grade) %>
                     <% i += 1.0 %>
@@ -59,7 +59,7 @@
                 <ul class="grade-list">
                   <li class="grade-list">
                     <kbd class="badge badge-dark">
-                      <%= link_to "Dodaj ocenę", nil, {:class => 'modal-action', 'data-toggle' => 'modal', 'data-target' => '#addGrade'} %>
+                      <%= link_to "Dodaj ocenę", nil, {class: 'modal-action', 'data-toggle': 'modal', 'data-target': '#addGrade'} %>
                     </kbd>
                   </li>
                   <li class="grade-list">
@@ -67,13 +67,15 @@
                   </li>
                   <li class="grade-list">
                     <kbd class="badge badge-dark">
-                      <%= link_to "Zobacz ucznia", student_url(student.user_id), {:class => 'modal-action'} %>
+                      <%= link_to "Zobacz ucznia", student_url(student.user_id), {class: 'modal-action'} %>
                     </kbd>
                   </li>
                 </ul>
               </td>
             </tr>
-            <%= render partial: 'grades/add_grade', locals: {g: g} %>
+            <%= add_grade_it.hidden_field :subject_id, value: @teacher_group_subject.subject.id %>
+            <%= add_grade_it.hidden_field :student_id, value: student.id %>
+            <%= render partial: 'grades/add_grade', locals: {add_grade_it: add_grade_it} %>
           <% end %>
         <% end %>
         </tbody>
