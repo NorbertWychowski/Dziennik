@@ -1,4 +1,12 @@
 class StudentsController < ApplicationController
+  before_action :requires_permission
+
+  private def requires_permission
+    if current_user.nil?
+      redirect_to '/403'
+    end
+  end
+
   def index
     @students = Student.all
   end
