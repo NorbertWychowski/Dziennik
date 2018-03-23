@@ -25,8 +25,8 @@ Rails.application.routes.draw do
   resource :sessions
 
   #oceny
-  post 'add_grade', to: 'grade#add_grade'
   resources :grades
+  get 'add_grade', to: 'grades#add_grade'
 
   #kody bledu
   match '/403', to: 'errors#forbidden', via: :all
