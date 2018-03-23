@@ -37,7 +37,7 @@
             <td scope="row"><%= student.user.lastName %></td>
             <td>
               <ul class="grade-list">
-                <% student.grades.where(subject: @teacher_group_subject.subject).all.each do |g| %>
+                <% student.grades.where(subject: @teacher_group_subject.subject).order(:id).all.each do |g| %>
                   <li class="grade-list">
                       <span data-toggle="tooltip" data-placement="top" title=<%= g.info %>>
                         <%= label_tag 'grade', g.grade, class: 'badge grade grade-' + g.grade.chars.last %>
