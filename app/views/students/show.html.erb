@@ -3,39 +3,42 @@
         $('[data-toggle="tooltip"]').tooltip()
     })
 </script>
+<% content_for :title, "Profil ucznia - " + @student.user.firstName + " " + @student.user.lastName %>
 <div class="container-fluid">
   <div class="container container-radius container-shadow container-padding-small bg-light">
-    <h4 class="float-left font-weight-light">Twoje oceny</h4>
-    <ul class="container-header float-right">
-      <li class="container-header"><h4 class="font-weight-light">Klasa: <kbd><%= @student.group.groupName %></kbd></h4>
-      </li>
-    </ul>
+    <h4 class="float-left font-weight-light" style="margin-bottom: 26px">Uczeń:
+      <kbd class="badge-dark"><%= @student.user.firstName + " " + @student.user.lastName %></kbd>
+    </h4>
+    <h4 class="float-right font-weight-light">Klasa:
+      <kbd class="badge-dark"><%= TeacherGroupSubject.all.where(group: @student.group).group.groupName %></kbd>
+    </h4>
+
     <div class="table-responsive">
+      <h5 class="font-weight-light">Oceny</h5>
       <table class="table">
         <thead>
         <tr>
           <th scope="col">Przedmiot</th>
-          <th scope="col">Oceny</th>
+          <th scope="col" style="min-width: 200px">Oceny</th>
           <th scope="col">Średnia</th>
         </tr>
         </thead>
         <tbody>
-        <% TeacherGroupSubject.all.where(group: @student.group).each do |s| %>
+        <% @subjects.each do |s| %>
           <% avg = 0.0 %>
           <% i = 0.0 %>
           <tr>
             <td scope="row"><%= s.subject.subjectName %></td>
             <td>
-              <% @student.grades.each do |g| %>
+              <% @student.grades.where(subject: s.subject).each do |g| %>
                 <ul class="grade-list">
-                  <% if s.subject.eql? g.subject %>
-                    <li class="grade-list"><span data-toggle="tooltip" data-placement="top" title=<%= g.info %>>
+                  <li class="grade-list"><span data-toggle="tooltip" data-placement="top" title=<%= g.info %>>
                       <%= label_tag 'grade', g.grade, class: 'badge grade grade-' + g.grade.chars.last %></span>
-                    </li>
-                    <% avg += Grade.gradeValues(g.grade) %>
-                    <% i += 1.0 %>
-                <% end end %>
-              </ul>
+                  </li>
+                  <% avg += Grade.gradeValues(g.grade) %>
+                  <% i += 1.0 %>
+                </ul>
+              <% end %>
             </td>
             <td><span class="badge badge-secondary"><%= (avg / i).round(2) %></span></td>
           </tr>
@@ -43,5 +46,64 @@
         </tbody>
       </table>
     </div>
+
+    <div class="table-responsive">
+      <h5 class="font-weight-light float-left">Uwagi</h5>
+      <h5 class="font-weight-light float-right">
+        <%= link_to "Dodaj nową uwagę", {controller: :notes, action: :add_note, student_id: @student.id},
+                    {remote: true, class: 'modal-action badge badge-dark'} %>
+      </h5>
+      <% if @notes.empty? %>
+        <br><br>
+        <h2 class="float-center font-weight-light" style="margin-bottom: 26px; text-align: center;">Brak uwag</h2>
+      <% else %>
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">Data wystawienia</th>
+            <th scope="col">Nauczyciel wystawiający</th>
+            <th scope="col">Typ</th>
+            <th scope="col" style="min-width: 200px">Treść</th>
+            <th scope="col">Akcja</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @notes.each do |note| %>
+            <tr>
+              <td><%= note.obtained_date %></td>
+              <td><%= note.user.firstName + " " + note.user.lastName %></td>
+              <% case note.note_type.id %>
+              <% when 1 %>
+                <td><span class="badge badge-success">Pozytywna</span></td>
+              <% when 3 %>
+                <td><span class="badge badge-danger">Negatywna</span></td>
+              <% when 2 %>
+                <td><span class="badge badge-warning">Neutralna</span></td>
+              <% end %>
+              <td><%= note.description %></td>
+              <td>
+                <kbd class="badge badge-dark">
+                  <%= link_to "Usuń uwagę", {controller: :notes, action: :delete_note, id: note.id},
+                              {remote: true, class: 'modal-action'} %>
+                </kbd>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="add_note" tabindex="-1" role="dialog" aria-labelledby="addCommentLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+<div class="modal fade" id="delete_note" tabindex="-1" role="dialog" aria-labelledby="deleteCommentLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"></div>
   </div>
 </div>

@@ -1,8 +1,8 @@
 <% content_for :title, "404" %>
-<div class="dialog">
-  <div>
-    <h1>The page you were looking for doesn't exist.</h1>
-    <p>You may have mistyped the address or the page may have moved.</p>
+<div class="container-fluid">
+  <div class="container container-error container-radius container-shadow bg-light">
+    <h1 class="display-5" style="margin-bottom: 20px">Błąd <kbd>404</kbd></h1>
+    <h3 class="display-6">Nie znaleziono strony</h3>
+    <%= image_tag 'saddog.png', class: 'image-error' %>
   </div>
-  <p>If you are the application owner check the logs for more information.</p>
 </div>

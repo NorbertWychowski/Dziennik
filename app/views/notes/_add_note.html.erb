@@ -1,0 +1,26 @@
+<%= form_for Note.new do |f| %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.hidden_field :obtained_date, value: Time.now %>
+  <%= f.hidden_field :student_id, value: params[:student_id] %>
+  <div class="modal-header">
+    <h5 class="modal-title" id="addCommentLabel">Dodaj uwagę</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Cofnij">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <%= f.label "Wybierz typ uwagi", class: 'commentType' %>
+      <%= f.select(:note_type_id, NoteType.all.map {|type| [type.note_type, type.id]}, {},
+                   class: 'form-control', id: 'commentType') %>
+    </div>
+    <div class="form-group">
+      <%= f.label "Wpisz treść uwagi", class: 'commentContent' %>
+      <%= f.text_area(:description, {class: 'form-control', id: 'commentContent'}) %>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cofnij</button>
+    <%= f.submit(value: "Dodaj uwagę", class: 'btn btn-primary', 'data-disable-with': "Dodaję uwagę...", method: :post) %>
+  </div>
+<% end %>

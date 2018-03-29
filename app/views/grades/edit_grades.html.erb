@@ -1,0 +1,67 @@
+<div class="container-fluid">
+  <div class="container container-radius container-shadow container-padding-small bg-light">
+    <h4 class="float-left font-weight-light" style="margin-bottom: 26px">Edycja ocen</h4>
+    <ul class="container-header float-right">
+      <li class="container-header"><h4 class="font-weight-light">Uczeń:
+        <kbd class="badge-dark">
+          <%= @student.user.firstName + " " + @student.user.lastName %>
+        </kbd>
+      </h4>
+      </li>
+      <li class="container-header">
+        <h4 class="font-weight-light">Przedmiot: <kbd class="badge-dark"><%= @subject.subjectName %></kbd></h4></li>
+      <li class="container-header">
+        <h4 class="font-weight-light">Klasa: <kbd class="badge-dark"><%= @student.group.groupName %></kbd></h4></li>
+    </ul>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Ocena</th>
+          <th scope="col">Typ oceny</th>
+          <th scope="col">Data wstawienia oceny</th>
+          <th scope="col">Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @grades.each do |g| %>
+          <tr>
+            <td><%= label_tag 'grade', g.grade, class: 'badge grade grade-' + g.grade.chars.last %></td>
+            <td><%= g.info %></td>
+            <td><%= g.obtained_date %></td>
+            <td>
+              <ul class="grade-list">
+                <li class="grade-list">
+                  <kbd class="badge badge-dark">
+                    <%= link_to "Edytuj ocenę", {controller: :grades, action: :edit_grade, grade_id: g.id,
+                                                 student_id: params[:student_id], subject_id: params[:subject_id]},
+                                {remote: true, class: 'modal-action'} %>
+                  </kbd>
+                </li>
+                <li class="grade-list">
+                  <kbd class="badge badge-dark">
+                    <%= link_to "Usuń ocenę", {controller: :grades, action: :delete_grade, id: g.id},
+                                {remote: true, class: 'modal-action'} %>
+                  </kbd>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="edit_grade" tabindex="-1" role="dialog" aria-labelledby="editGradeLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+<div class="modal fade" id="delete_grade" tabindex="-1" role="dialog" aria-labelledby="deleteGradeLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"></div>
+  </div>
+</div>

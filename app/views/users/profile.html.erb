@@ -1,0 +1,19 @@
+<% content_for :title, @user.firstName + " " + @user.lastName + " - Profil" %>
+<div class="container-fluid">
+  <div class="container container-radius container-shadow container-padding-small bg-light">
+    <h2 class="float-left font-weight-light" style="margin-bottom: 26px">Profil użytkownika</h2>
+    <a class="float-right btn btn-dark" href="#" role="button">Edytuj profil</a>
+    <div class="container-fluid content-container">
+      <%= image_tag 'avatar.png', class: 'col-3 float-left img-fluid rounded profile-data' %>
+      <div class="col-9 float-left table-responsive profile-data">
+        <ul class="list-group">
+          <li class="list-group-item">Imię i nazwisko: <b><%= @user.firstName + " " + @user.lastName %></b></li>
+          <li class="list-group-item">Adres zamieszkania: <b><%= @user.address %></b></li>
+          <li class="list-group-item">Data urodzenia: <b><%= @user.birth_date %></b></li>
+          <li class="list-group-item">Adres e-mail: <b><%= @user.email %></b></li>
+          <li class="list-group-item">Telefon: <b><%= @user.phone %></b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

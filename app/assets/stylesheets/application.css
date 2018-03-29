@@ -16,15 +16,6 @@
 /* Bootstrap style extension */
 
 /* Main */
-/* Bootstrap style extension */
-
-/* Main */
-/* Bootstrap style extension */
-
-/* Main */
-/* Bootstrap style extension */
-
-/* Main */
 body {
     background: #eee url("background.jpg") no-repeat fixed top;
 }
@@ -99,49 +90,58 @@ a.feature {
     margin-right: 10px;
     margin-bottom: 10px;
     background-size: 50%;
-    background: no-repeat top center;
+    background-repeat: no-repeat;
+    background-position: top center;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, opacity 0.15s ease-in-out;
 }
 
 .feature:hover {
     opacity: 0.75;
-
 }
 
 .feature-profile {
-    background: #0277BD url("icon-profile.png");
+    background-image: url("icon-profile.png");
+    background-color: #0277BD;
 }
 
 .feature-grade {
-    background: #FF5722 url("icon-grade.png");
+    background-image: url("icon-grade.png");
+    background-color: #FF5722;
 }
 
 .feature-note {
-    background: #1B5E20 url("icon-note.png");
+    background-image: url("icon-note.png");
+    background-color: #1B5E20;
 }
 
 .feature-timetable {
-    background: #D32F2F url("icon-timetable.png");
+    background-image: url("icon-timetable.png");
+    background-color: #D32F2F;
 }
 
 .feature-class {
-    background: #FF9800 url("icon-class.png");
+    background-image: url("icon-class.png");
+    background-color: #FF9800;
 }
 
 .feature-subject {
-    background: #FF5722 url("icon-subject.png");
+    background-image: url("icon-subject.png");
+    background-color: #FF5722;
 }
 
 .feature-teacher {
-    background: #D32F2F url("icon-teacher.png");
+    background-image: url("icon-teacher.png");
+    background-color: #D32F2F;
 }
 
 .feature-student {
-    background: #1B5E20 url("icon-student.png");
+    background-image: url("icon-student.png");
+    background-color: #1B5E20;
 }
 
 .feature-user {
-    background: #673AB7 url("icon-user.png");
+    background-image: url("icon-user.png");
+    background-color: #673AB7;
 }
 
 /* Login page */
@@ -153,7 +153,8 @@ a.feature {
 .container-login {
     padding: 50px;
     max-width: 900px;
-    margin: 8% auto auto;
+    margin: auto;
+    margin-top: 8%;
 }
 
 .wrapper-login {

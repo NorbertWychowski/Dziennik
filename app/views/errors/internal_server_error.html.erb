@@ -1,7 +1,8 @@
 <% content_for :title, "500" %>
-<div class="dialog">
-  <div>
-    <h1>We're sorry, but something went wrong.</h1>
+<div class="container-fluid">
+  <div class="container container-error container-radius container-shadow bg-light">
+    <h1 class="display-5" style="margin-bottom: 20px">Błąd <kbd>500</kbd></h1>
+    <h3 class="display-6">Błąd serwera</h3>
+    <%= image_tag 'saddog.png', class: 'image-error' %>
   </div>
-  <p>If you are the application owner check the logs for more information.</p>
 </div>

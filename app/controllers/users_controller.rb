@@ -3,15 +3,15 @@ class UsersController < ApplicationController
 
   private def requires_permission
     if current_user.nil?
-      redirect_to '/403'
+      redirect_to '/err/403'
     else
       unless params[:id].to_i == current_user.id or current_user.user_type_id == 1
-        redirect_to '/403'
+        redirect_to '/err/403'
       end
     end
   end
 
-  def teacher_index
+  def profile
     @user = User.find(params[:id])
   end
 

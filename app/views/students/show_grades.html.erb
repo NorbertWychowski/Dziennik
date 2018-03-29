@@ -1,0 +1,44 @@
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+<% content_for :title, "Twoje oceny" %>
+<div class="container-fluid">
+  <div class="container container-radius container-shadow container-padding-small bg-light">
+    <h4 class="float-left font-weight-light" style="margin-bottom: 26px">Twoje oceny</h4>
+    <%= link_to "Powrót na stronę główną", root_path, class: 'float-right btn btn-dark' %>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Przedmiot</th>
+          <th scope="col">Oceny</th>
+          <th scope="col">Średnia</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @subjects.each do |s| %>
+          <% avg = 0.0 %>
+          <% i = 0.0 %>
+          <tr>
+            <td scope="row"><%= s.subject.subjectName %></td>
+            <td>
+              <% @student.grades.where(subject: s.subject).each do |g| %>
+                <ul class="grade-list">
+                  <li class="grade-list"><span data-toggle="tooltip" data-placement="top" title=<%= g.info %>>
+                      <%= label_tag 'grade', g.grade, class: 'badge grade grade-' + g.grade.chars.last %></span>
+                  </li>
+                  <% avg += Grade.gradeValues(g.grade) %>
+                  <% i += 1.0 %>
+                </ul>
+              <% end %>
+            </td>
+            <td><span class="badge badge-secondary"><%= (avg / i).round(2) %></span></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

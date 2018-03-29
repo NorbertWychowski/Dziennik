@@ -1,0 +1,42 @@
+<% unless current_user.nil? %>
+  <% case current_user.user_type_id %>
+<% when 1 %>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administrator</a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="admin-glowna.html">Strona główna</a>
+        <a class="dropdown-item" href="admin-klasy.html">Klasy</a>
+        <a class="dropdown-item" href="admin-przedmioty.html">Przedmioty</a>
+        <a class="dropdown-item" href="admin-nauczyciele.html">Nauczyciele</a>
+        <a class="dropdown-item" href="admin-uczniowie.html">Uczniowie</a>
+        <a class="dropdown-item" href="admin-dodaj-uzytkownika.html">Dodaj użytkownika</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="admin-widok-klasy.html">Widok klasy</a>
+        <a class="dropdown-item" href="admin-widok-przedmiotu.html">Widok przedmiotu</a>
+        <a class="dropdown-item" href="admin-widok-nauczyciela.html">Widok nauczyciela</a>
+        <a class="dropdown-item" href="admin-widok-ucznia.html">Widok ucznia</a>
+      </div>
+    </li>
+  <% when 2 %>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Nauczyciel</a>
+      <div class="dropdown-menu">
+        <%= link_to "Strona główna", root_path, class: 'dropdown-item' %>
+        <%= link_to "Lista zajęć", user_url(current_user), class: 'dropdown-item' %>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="nauczyciel-klasa.html">Podsumowanie klasy</a>
+        <a class="dropdown-item" href="nauczyciel-profil-ucznia.html">Profil ucznia</a>
+        <a class="dropdown-item" href="nauczyciel-edytuj-oceny.html">Edytuj ocenę</a>
+      </div>
+    </li>
+  <% when 3 %>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Uczeń</a>
+      <div class="dropdown-menu">
+        <%= link_to "Strona główna", root_path, class: 'dropdown-item' %>
+        <%= link_to "Oceny", student_url(current_user), class: 'dropdown-item' %>
+        <a class="dropdown-item" href="uczen-uwagi.html">Uwagi</a>
+      </div>
+    </li>
+  <% end %>
+<% end %>

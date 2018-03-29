@@ -1,6 +1,61 @@
-<div class="container-fluid">
-  <div class="container container-radius container-shadow container-padding-normal bg-light">
-    <h1 class="font-weight-light">Witaj <kbd>Strudzony Wędrowcze</kbd></h1>
-    <p>Możesz zrobić następujące rzeczy</p>
+<% content_for :title, "e-Dziennik - Strona główna" %>
+<% if current_user.nil? %>
+  <div class="container-fluid">
+    <div class="container container-radius container-shadow container-padding-normal bg-light">
+      <h1 class="font-weight-light text-center">Witaj w usłudze elektronicznego dziennika</h1>
+      <p>Usługa oferuje to i tamto</p>
+    </div>
   </div>
-</div>
+<% else %>
+  <% case current_user.user_type_id %>
+<% when 1 %>
+
+  <% when 2 %>
+    <div class="container-fluid">
+      <div class="container container-radius container-shadow container-padding-small bg-light">
+        <h2 class="float-left font-weight-light">Strona główna</h2>
+        <ul class="container-header float-right">
+          <li class="container-header">
+            <h4 class="font-weight-light">Zalogowano jako
+              <kbd class="badge-dark">
+                <%= current_user.firstName + " " + current_user.lastName %>
+              </kbd>
+            </h4>
+          </li>
+        </ul>
+        <div class="container content-container">
+          <h5 class="font-weight-light">Akcje</h5>
+          <%= link_to "Twój profil", users_profile_url(current_user.id),
+                      class: 'float-left col-2 feature feature-profile container-radius' %>
+          <%= link_to "Zajęcia", user_url(current_user), class: 'float-left col-2 feature feature-timetable container-radius' %>
+        </div>
+      </div>
+    </div>
+  <% when 3 %>
+    <div class="container-fluid">
+      <div class="container container-radius container-shadow container-padding-small bg-light">
+        <h2 class="float-left font-weight-light">Strona główna</h2>
+        <ul class="container-header float-right">
+          <li class="container-header">
+            <h4 class="font-weight-light">Zalogowano jako
+              <kbd class="badge-dark">
+                <%= current_user.firstName + " " + current_user.lastName %>
+              </kbd>
+            </h4>
+          </li>
+        </ul>
+
+        <div class="container content-container">
+          <h5 class="font-weight-light">Akcje</h5>
+          <%= link_to "Twój profil", users_profile_url(current_user.id),
+                      class: 'float-left col-2 feature feature-profile container-radius' %>
+          <%= link_to "Oceny", student_grades_url(current_user), class: 'float-left col-2 feature feature-grade container-radius' %>
+          <%= link_to "Dziennik uwag", student_notes_url(current_user), class: 'float-left col-2 feature feature-note container-radius' %>
+        </div>
+      </div>
+    </div>
+
+  <% else
+       # type code here
+     end %>
+<% end %>

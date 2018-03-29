@@ -14,17 +14,7 @@ class SessionsController < ApplicationController
     user = User.find_by(login: params[:session][:login])
     if user && user.authenticate(params[:session][:password_digest])
       log_in(user)
-      case user.user_type_id
-        when 1
-          redirect_to root_path
-        when 2
-          redirect_to teacher_index_url(user)
-        when 3
-          redirect_to student_url(user)
-        else
-          flash.now[:danger] = user.user_type_id + " kim jestes?"
-          render 'login'
-      end
+      redirect_to root_path
     else
       flash.now[:danger] = "Podano nieprawidłowe hasło lub nazwę użytkownika"
       render :action => 'new'

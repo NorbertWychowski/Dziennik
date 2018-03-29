@@ -1,6 +1,6 @@
 <%= form_for Grade.new do |f| %>
   <%= f.hidden_field :user_id, value: current_user.id %>
-  <%= f.hidden_field :obtainedDate, value: Time.now %>
+  <%= f.hidden_field :obtained_date, value: Time.now %>
   <%= f.hidden_field :student_id, value: params[:student_id] %>
   <%= f.hidden_field :subject_id, value: params[:subject_id] %>
   <div class="modal-header">
@@ -11,15 +11,10 @@
   </div>
   <div class="modal-body">
     <div class="form-group">
-      <%= f.label "Wybierz ocenę", class: 'gradeSelect' %>
       <%= f.select(:grade, %w(1 -2 2 +2 -3 3 +3 -4 4 +4 -5 5 +5 6), {},
                    class: 'form-control', id: 'gradeSelect') %>
     </div>
-    <div class="form-group">
-      <%= f.label :info, "Wybierz typ oceny", class: 'gradeSelect' %>
-      <%= f.select(:info, %w(Sprawdzian Kartkówka), {},
-                   {class: 'form-control', id: 'gradeTypeSelect'}) %>
-    </div>
+
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cofnij</button>

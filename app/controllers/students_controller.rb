@@ -11,8 +11,20 @@ class StudentsController < ApplicationController
     @students = Student.all
   end
 
+  def show_grades
+    @student = Student.find_by(user: params[:id])
+    @subjects = TeacherGroupSubject.all.where(group: @student.group)
+  end
+
+  def show_notes
+    @student = Student.find_by(user: params[:id])
+    @notes = Note.all.where(student: @student.id)
+  end
+
   def show
     @student = Student.find_by(user: params[:id])
+    @subjects = TeacherGroupSubject.all.where(group: @student.group)
+    @notes = Note.all.where(student: @student.id)
   end
 
   def new
@@ -32,3 +44,4 @@ class StudentsController < ApplicationController
     params.require(:student).permit(:firstName, :lastName, :phone, :email, :login, :password, :group_id)
   end
 end
+

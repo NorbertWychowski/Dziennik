@@ -1,0 +1,36 @@
+<% content_for :title, "Twoje uwagi" %>
+<div class="container-fluid">
+  <div class="container container-radius container-shadow container-padding-small bg-light">
+    <h4 class="float-left font-weight-light" style="margin-bottom: 26px">Twoje uwagi</h4>
+    <%= link_to "Powrót na stronę główną", root_path, class: 'float-right btn btn-dark' %>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Data wystawienia</th>
+          <th scope="col">Nauczyciel wystawiający</th>
+          <th scope="col">Typ</th>
+          <th scope="col" style="min-width: 200px">Treść</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @notes.each do |note| %>
+          <tr>
+            <td><%= note.obtained_date %></td>
+            <td><%= note.user.firstName + " " + note.user.lastName %></td>
+            <% case note.note_type.id %>
+            <% when 1 %>
+              <td><span class="badge badge-danger">Negatywna</span></td>
+            <% when 2 %>
+              <td><span class="badge badge-warning">Neutralna</span></td>
+            <% when 3 %>
+              <td><span class="badge badge-success">Pozytywna</span></td>
+            <% end %>
+            <td><%= note.description %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

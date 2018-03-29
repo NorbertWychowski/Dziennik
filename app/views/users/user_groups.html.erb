@@ -6,15 +6,10 @@
 <% content_for :title, @teacher_group_subject.subject.subjectName + " - " + @teacher_group_subject.group.groupName %>
 <div class="container-fluid">
   <div class="container container-radius container-shadow container-padding-small bg-light">
-    <h4 class="float-left font-weight-light">Lista ocen</h4>
-    <ul class="container-header float-right">
-      <li class="container-header"><h4 class="font-weight-light">
-        Przedmiot: <kbd class="badge-dark"><%= @teacher_group_subject.subject.subjectName %></kbd></h4>
-      </li>
-      <li class="container-header"><h4 class="font-weight-light">
-        Klasa: <kbd class="badge-dark"><%= @teacher_group_subject.group.groupName %></kbd></h4>
-      </li>
-    </ul>
+    <h4 class="float-left font-weight-light" style="margin-bottom: 26px">Przedmiot:
+      <kbd class="badge-dark"><%= @teacher_group_subject.subject.subjectName %></kbd></h4>
+    <h4 class="float-right font-weight-light">Klasa:
+      <kbd class="badge-dark"><%= @teacher_group_subject.group.groupName %></kbd></h4>
     <div class="table-responsive">
       <table class="table">
         <thead>
@@ -61,11 +56,15 @@
                   </kbd>
                 </li>
                 <li class="grade-list">
-                  <kbd class="badge badge-dark"> <a class="modal-action" href="#"> Edytuj oceny </a></kbd>
+                  <kbd class="badge badge-dark">
+                    <%= link_to "Edytuj oceny", {controller: :grades, action: :edit_grades,
+                                                 student_id: student.id, subject_id: @teacher_group_subject.subject.id},
+                                {class: 'modal-action', method: :get} %>
+                  </kbd>
                 </li>
                 <li class="grade-list">
                   <kbd class="badge badge-dark">
-                    <%= link_to "Zobacz ucznia", student_url(student.user_id), {class: 'modal-action'} %>
+                    <%= link_to "Zobacz ucznia", student_url(student.user_id), class: 'modal-action' %>
                   </kbd>
                 </li>
               </ul>
@@ -79,7 +78,6 @@
 </div>
 <div class="modal fade" id="add_grade" tabindex="-1" role="dialog" aria-labelledby="addGradeLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
-    </div>
+    <div class="modal-content"></div>
   </div>
 </div>
