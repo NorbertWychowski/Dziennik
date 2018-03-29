@@ -2,8 +2,8 @@ class StudentsController < ApplicationController
   before_action :requires_permission
 
   private def requires_permission
-    if current_user.nil?
-      redirect_to '/403'
+    if current_user.nil? or (current_user.id != params[:id].to_i and current_user.user_type_id == 3)
+      redirect_to '/err/403'
     end
   end
 

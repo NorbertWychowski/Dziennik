@@ -10,7 +10,7 @@
       <kbd class="badge-dark"><%= @student.user.firstName + " " + @student.user.lastName %></kbd>
     </h4>
     <h4 class="float-right font-weight-light">Klasa:
-      <kbd class="badge-dark"><%= TeacherGroupSubject.all.where(group: @student.group).group.groupName %></kbd>
+      <kbd class="badge-dark"><%= @student.group.groupName %></kbd>
     </h4>
 
     <div class="table-responsive">

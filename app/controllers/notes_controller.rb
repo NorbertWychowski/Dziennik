@@ -1,4 +1,12 @@
 class NotesController < ApplicationController
+  before_action :requires_permission
+
+  private def requires_permission
+    if current_user.nil?
+      redirect_to login_path
+    end
+  end
+
   def create
     @note = Note.new(note_params)
     unless @note.save
