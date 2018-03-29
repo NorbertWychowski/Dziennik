@@ -30,7 +30,7 @@ class GradesController < ApplicationController
   def edit_grades
     @student = Student.find(params[:student_id])
     @subject = Subject.find(params[:subject_id])
-    @grades = Grade.all.where(student_id: @student.id)
+    @grades = Grade.all.where(student_id: @student.id, subject_id: @subject.id)
   end
 
   def edit_grade
