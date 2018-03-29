@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   #nauczyciele
   resources :users
   get 'users/:id/:teacher_group_subject', to: 'users#user_groups', as: 'users_groups'
+  get 'teacher/:id', to: 'users#teacher_index', as: 'teacher_index'
 
   #uczniowe
   resources :students do

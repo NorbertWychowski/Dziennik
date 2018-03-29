@@ -11,6 +11,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def teacher_index
+    @user = User.find(params[:id])
+  end
+
   def show
     @user = User.find(params[:id])
   end

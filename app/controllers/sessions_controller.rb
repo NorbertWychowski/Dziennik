@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
         when 1
           redirect_to root_path
         when 2
-          redirect_to user_url(user)
+          redirect_to teacher_index_url(user)
         when 3
           redirect_to student_url(user)
         else
