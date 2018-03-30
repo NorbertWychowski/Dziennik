@@ -35,7 +35,7 @@
                   <li class="grade-list"><span data-toggle="tooltip" data-placement="top" title=<%= g.info %>>
                       <%= label_tag 'grade', g.grade, class: 'badge grade grade-' + g.grade.chars.last %></span>
                   </li>
-                  <% avg += Grade.gradeValues(g.grade) %>
+                  <% avg += Grade.grade_values(g.grade) %>
                   <% i += 1.0 %>
                 </ul>
               <% end %>

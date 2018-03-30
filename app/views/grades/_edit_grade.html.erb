@@ -12,12 +12,12 @@
   <div class="modal-body">
     <div class="form-group">
       <%= f.label "Wybierz ocenę", class: 'gradeSelect' %>
-      <%= f.select(:grade, %w(1 -2 2 +2 -3 3 +3 -4 4 +4 -5 5 +5 6), {},
+      <%= f.select(:grade, Grade.get_grades.keys, {},
                    class: 'form-control', id: 'gradeSelect') %>
     </div>
     <div class="form-group">
       <%= f.label :info, "Wybierz typ oceny", class: 'gradeSelect' %>
-      <%= f.select(:info, %w(Sprawdzian Kartkówka), {},
+      <%= f.select(:info, Grade.get_grade_info, {},
                    {class: 'form-control', id: 'gradeTypeSelect'}) %>
     </div>
   </div>
