@@ -1,0 +1,25 @@
+<%= form_for TeacherGroupSubject.new do |f| %>
+  <%= f.hidden_field :user_id, value: params[:id] %>
+  <div class="modal-header">
+    <h5 class="modal-title" id="addLessonLabel">Przydziel zajęcia nauczycielowi</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Cofnij">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <%= f.label :subject_id, "Wybierz zajęcia" %>
+      <%= f.select(:subject_id, Subject.all.map {|subject| [subject.subjectName, subject.id]}, {},
+                   class: 'form-control', id: 'lessonSelect') %>
+    </div>
+    <div class="form-group">
+      <%= f.label :group_id, "Wybierz klasę" %>
+      <%= f.select(:group_id, Group.all.map {|group| [group.groupName, group.id]}, {},
+                   class: 'form-control', id: 'groupSelect') %>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cofnij</button>
+    <%= f.submit(value: "Przydziel zajęcia", class: 'btn btn-primary', 'data-disable-with': "Przydzielam...", method: :post) %>
+  </div>
+<% end %>

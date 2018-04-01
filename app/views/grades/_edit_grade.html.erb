@@ -1,8 +1,4 @@
 <%= form_for @grade, method: :put do |f| %>
-  <%= f.hidden_field :student_id, value: params[:student_id] %>
-  <%= f.hidden_field :subject_id, value: params[:subject_id] %>
-  <%= f.hidden_field :obtained_date, value: @grade.obtained_date %>
-  <%= f.hidden_field :user_id, value: @grade.user.id %>
   <div class="modal-header">
     <h5 class="modal-title" id="editGradeLabel">Zmień ocenę</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Cofnij">

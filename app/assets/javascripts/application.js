@@ -15,3 +15,10 @@
 //= require_tree .
 //= require jquery
 //= require jquery_ujs
+//
+function showGroup(userID) {
+    if (userID.value == 3)
+        $('#user-type').show(300);
+    else
+        $('#user-type').hide(300);
+}

@@ -1,0 +1,48 @@
+<div class="container-fluid">
+  <div class="container container-radius container-shadow container-padding-small bg-light">
+    <h2 class="float-left font-weight-light" style="margin-bottom: 26px">Lista nauczycieli</h2>
+    <%= link_to "Dodaj nowego nauczyciela", new_user_path, class: 'float-right btn btn-dark' %>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Imię</th>
+          <th scope="col">Nazwisko</th>
+          <th scope="col">Ilość zajęć</th>
+          <th scope="col">Akcja</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td>
+              <% if user.user_type_id == 1 %>
+                <kbd class="badge badge-warning"><%= user.firstName %></kbd>
+              <% else %>
+                <%= user.firstName %>
+              <% end %>
+            </td>
+            <td>
+              <% if user.user_type_id == 1 %>
+                <kbd class="badge badge-warning"><%= user.lastName %></kbd>
+              <% else %>
+                <%= user.lastName %>
+              <% end %>
+            </td>
+            <td><%= TeacherGroupSubject.where(user_id: user).count %></td>
+            <td>
+              <ul class="grade-list">
+                <li class="grade-list">
+                  <kbd class="badge badge-dark">
+                    <%= link_to "Edytuj nauczyciela", user_profile_url(user.id), class: 'modal-action' %>
+                  </kbd>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

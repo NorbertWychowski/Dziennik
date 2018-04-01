@@ -1,13 +1,45 @@
-<head>
-  <% content_for :title, "Dziennik" %>
-</head>
-
-<body>
-<h1>Grupy</h1>
-<% @groups.each do |group| %>
-  <div class="well">
-    <h3><%= group.groupName %></h3>
-    <%= link_to "Pokaż grupę", group_path(group), :class => 'btn btn-default' %>
+<% content_for :title, "Wszystkie klasy" %>
+<div class="container-fluid">
+  <div class="container container-radius container-shadow container-padding-small bg-light">
+    <h2 class="float-left font-weight-light" style="margin-bottom: 26px">Lista klas</h2>
+    <% if current_user.user_type_id == 1 %>
+      <%= link_to "Dodaj nową klasę", {controller: :groups, action: :add_group},
+                  {remote: true, class: 'float-right btn btn-dark'} %>
+    <% end %>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Oznaczenie</th>
+          <th scope="col">Ilość osób</th>
+          <th scope="col">Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @groups.each do |group| %>
+          <tr>
+            <td><%= group.groupName %></td>
+            <td><%= group.students.count %></td>
+            <td>
+              <ul class="grade-list">
+                <li class="grade-list">
+                  <kbd class="badge badge-dark">
+                    <%= link_to "Zobacz klasę", group_path(group.id), class: 'modal-action' %>
+                  </kbd>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<% if current_user.user_type_id == 1 %>
+  <div class="modal fade" id="add_group" tabindex="-1" role="dialog" aria-labelledby="addClassLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content"></div>
+    </div>
   </div>
 <% end %>
-</body>

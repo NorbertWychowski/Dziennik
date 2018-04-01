@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
-  get 'errors/forbidden'
-
-  get 'error/forbidden'
-
-  get 'static_pages/home'
-
   root 'static_pages#home'
+
+  get 'errors/forbidden'
+  get 'error/forbidden'
+  get 'static_pages/home'
 
   #logowanie
   get 'login', to: 'sessions#new'
@@ -14,16 +12,14 @@ Rails.application.routes.draw do
 
   #nauczyciele
   resources :users
-  get 'users/:id/:teacher_group_subject', to: 'users#user_groups', as: 'users_groups'
-  get ':id/profile', to: 'users#profile', as: 'users_profile'
-  get ':id', to: 'users#profile'
+  get 'user/:id/group/:teacher_group_subject', to: 'users#user_groups', as: 'users_groups'
+  get 'profile/:id', to: 'users#profile', as: 'user_profile'
 
   #uczniowe
   get 'student/:id/notes', to: 'students#show_notes', as: 'student_notes'
   get 'student/:id/grades', to: 'students#show_grades', as: 'student_grades'
-  resources :students do
-    resources :grades
-  end
+  get 'student/change_group', to: 'students#change_group'
+  resources :students
 
   #sesja
   resource :sessions
@@ -36,7 +32,7 @@ Rails.application.routes.draw do
   get 'grade/edit_grades', to: 'grades#edit_grades'
 
   #uwagi
-  resources :notes
+  resource :notes
   get 'note/add_note', to: 'notes#add_note'
   get 'note/delete_note', to: 'notes#delete_note'
 
@@ -45,13 +41,19 @@ Rails.application.routes.draw do
   match '/err/404', to: 'errors#not_found', via: :all
   match '/err/500', to: 'errors#internal_server_error', via: :all
 
-  resources :groups do
-    resources :students
-  end
+  #klasy
+  get 'group/add_group', to: 'groups#add_group'
+  resources :groups
 
-  resources :users do
-    resources :grades
-  end
+  #przedmioty
+  get 'subject/add_subject', to: 'subjects#add_subject'
+  get 'subject/delete_subject', to: 'subjects#delete_subject'
+  resources :subjects
+
+  #lekcje
+  get 'lesson/add_lesson', to: 'teacher_group_subjects#add_lesson'
+  get 'lesson/delete_lesson', to: 'teacher_group_subjects#delete_lesson'
+  resources :teacher_group_subjects
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

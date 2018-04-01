@@ -1,0 +1,50 @@
+<div class="container-fluid">
+  <div class="container container-radius container-shadow container-padding-small bg-light">
+    <h2 class="float-left font-weight-light" style="margin-bottom: 26px">Lista przedmiotów</h2>
+    <% if current_user.user_type_id == 1 %>
+      <%= link_to "Dodaj nowy przedmiot", {controller: :subjects, action: :add_subject},
+                  {remote: true, class: 'float-right btn btn-dark'} %>
+    <% end %>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Nazwa przedmiotu</th>
+          <th scope="col">Akcja</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @subjects.each do |subject| %>
+          <tr>
+            <td><%= subject.subjectName %></td>
+            <td>
+              <% if current_user.user_type_id == 1 %>
+                <ul class="grade-list">
+                  <li class="grade-list">
+                    <kbd class="badge badge-dark">
+                      <%= link_to "Usuń przedmiot", {controller: :subjects, action: :delete_subject, id: subject},
+                                  {remote: true, class: 'modal-action'} %>
+                    </kbd>
+                  </li>
+                </ul>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<% if current_user.user_type_id == 1 %>
+  <div class="modal fade" id="add_subject" tabindex="-1" role="dialog" aria-labelledby="addSubjectLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content"></div>
+    </div>
+  </div>
+  <div class="modal fade" id="delete_subject" tabindex="-1" role="dialog" aria-labelledby="deleteSubjectLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content"></div>
+    </div>
+  </div>
+<% end %>

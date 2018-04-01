@@ -7,10 +7,6 @@ class StudentsController < ApplicationController
     end
   end
 
-  def index
-    @students = Student.all
-  end
-
   def show_grades
     @student = Student.find_by(user: params[:id])
     @subjects = TeacherGroupSubject.all.where(group: @student.group)
@@ -27,14 +23,18 @@ class StudentsController < ApplicationController
     @notes = Note.all.where(student: @student.id)
   end
 
-  def new
-    @student = Student.new
+  def change_group
+    @student = Student.find_by(user_id: params[:id])
+    respond_to do |format|
+      format.html
+      format.js
+      format.json
+    end
   end
 
-  def create
-    @student = Student.create(student_params)
-
-    redirect_to root_path
+  def update
+    Student.find(params[:id]).update(student_params)
+    redirect_back fallback_location: root_path
   end
 
   def destroy

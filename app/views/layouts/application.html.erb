@@ -7,7 +7,7 @@
   <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
   <meta name="description" content="Platforma dziennika elektronicznego"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  
+
   <%= favicon_link_tag 'favicon.ico' %>
   <%= stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', media: 'all', 'data-turbolinks-track': true %>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': true %>
@@ -33,7 +33,26 @@
 
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
-        <%= render 'layouts/submenu' %>
+        <% if loggen_in? %>
+          <%= link_to "Strona główna", root_path, class: 'nav-link' + current_class?(root_path) %>
+          <%= link_to "Profil", user_profile_url(current_user.id),
+                      class: 'nav-link' + current_class?(user_profile_url(current_user.id)) %>
+          <% case current_user.user_type_id %>
+        <% when 1 %>
+            <%= link_to "Klasy", groups_path, class: 'nav-link' + current_class?(groups_path) %>
+            <%= link_to "Przedmioty", subjects_path, class: 'nav-link' + current_class?(subjects_path) %>
+            <%= link_to "Nauczyciele", users_path, class: 'nav-link' + current_class?(users_path) %>
+            <a class="nav-link" href="admin-uczniowie.html">Uczniowie</a>
+            <%= link_to "Dodaj użytkownika", new_user_path, class: 'nav-link' + current_class?(new_user_path) %>
+          <% when 2 %>
+            <%= link_to "Lista zajęć", user_url(current_user), class: 'nav-link' + current_class?(user_url(current_user)) %>
+          <% when 3 %>
+            <%= link_to "Oceny", student_grades_url(current_user),
+                        class: 'nav-link' + current_class?(student_grades_url(current_user)) %>
+            <%= link_to "Uwagi", student_notes_url(current_user),
+                        class: 'nav-link' + current_class?(student_notes_url(current_user)) %>
+          <% end %>
+        <% end %>
       </ul>
       <% if current_user.nil? %>
         <%= link_to "Zaloguj się", login_path, class: 'btn btn-outline-light' %>

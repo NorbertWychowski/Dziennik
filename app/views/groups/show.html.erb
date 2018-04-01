@@ -1,4 +1,33 @@
 <% content_for :title, "Klasa " + @group.groupName %>
-<h1>Klasa: <%= @group.groupName %></h1>
-
-<%= render 'students/students' %>
+<div class="container-fluid">
+  <div class="container container-radius container-shadow container-padding-small bg-light">
+    <h2 class="float-left font-weight-light" style="margin-bottom: 26px">Klasa <kbd><%= @group.groupName %></kbd></h2>
+    <div class="table-responsive" style="margin-top: 26px">
+      <h5 class="font-weight-light float-left">Lista uczniów</h5>
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Imię</th>
+          <th scope="col">Nazwisko</th>
+          <th scope="col">Akcja</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @group.students.each do |student| %>
+          <tr>
+            <td><%= student.user.firstName %></td>
+            <td><%= student.user.lastName %></td>
+            <td>
+              <kbd class="badge badge-dark">
+                <% unless current_user.user_type_id == 3 %>
+                  <%= link_to "Zobacz ucznia", user_profile_url(student.user.id), class: 'modal-action' %>
+                <% end %>
+              </kbd>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

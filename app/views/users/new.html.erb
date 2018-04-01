@@ -1,0 +1,49 @@
+<%= form_for @user do |f| %>
+  <div class="container-fluid">
+    <div class="container container-radius container-shadow container-padding-small bg-light">
+      <h2 class="float-left font-weight-light" style="margin-bottom: 26px">Dodaj użytkownika</h2>
+
+      <div class="container content-container">
+        <h5 class="font-weight-light">Uzupełnij wszystkie dane</h5>
+        <form>
+          <div class="float-left col-4 form-group">
+            <%= f.label :firstName, "Imię" %>
+            <%= f.text_field(:firstName, {class: 'form-control', id: 'name', placeholder: 'wpisz imię', required: ''}) %>
+            <%= f.label :lastName, "Nazwisko" %>
+            <%= f.text_field(:lastName, {class: 'form-control', id: 'surname', placeholder: 'wpisz nazwisko', required: ''}) %>
+            <%= f.label :address, "Adres zamieszkania" %>
+            <%= f.text_field(:address, {class: 'form-control', id: 'address', placeholder: 'wpisz adres zamieszkania', required: ''}) %>
+          </div>
+          <div class="float-left col-4 form-group">
+            <%= f.label :login, "Login" %>
+            <%= f.text_field(:login, {class: 'form-control', id: 'username', placeholder: 'wpisz login', required: ''}) %>
+            <%= f.label :password_digest, "Hasło" %>
+            <%= f.password_field(:password_digest, {class: 'form-control', id: 'password', placeholder: 'wpisz hasło', required: ''}) %>
+            <%= f.label :birth_date, "Data urodzenia" %>
+            <%= f.date_field(:birth_date, {class: 'form-control', id: 'birthdate', placeholder: 'wpisz ', required: ''}) %>
+          </div>
+          <div class="float-left col-4 form-group">
+            <%= f.label :email, "Adres e-mail" %>
+            <%= f.email_field(:email, {class: 'form-control', id: 'email', placeholder: 'nazwa@poczta.pl', required: ''}) %>
+            <%= f.label :phone, "Numer telefonu" %>
+            <%= f.phone_field(:phone, {class: 'form-control', id: 'phone', placeholder: '+48', required: ''}) %>
+            <%= f.label :user_type_id, "Wybierz typ użytkownika" %>
+            <%= f.select(:user_type_id, UserType.where.not(id: 1).all.map {|user_type| [user_type.userType, user_type.id]}, {},
+                         {class: 'form-control', id: 'accountType', onchange: 'showGroup(this)'}) %>
+            <div id="user-type" style="display: none;">
+              <%= f.fields_for :students do |student_f| %>
+                <%= student_f.label :group_id, "Wybierz klasę" %>
+                <%= student_f.select(:group_id, Group.all.map {|group| [group.groupName, group.id]}, {},
+                                     {class: 'form-control', id: 'groupType'}) %>
+              <% end %>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="container content-container">
+        <%= f.submit(value: "Dodaj nowego użytkownika", class: 'btn btn-primary',
+                     'data-disable-with': "Dodaję użytkownika...", method: :post) %>
+      </div>
+    </div>
+  </div>
+<% end %>

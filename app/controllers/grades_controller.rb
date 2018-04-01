@@ -3,7 +3,7 @@ class GradesController < ApplicationController
 
   private def requires_permission
     if current_user.nil?
-      redirect_to '/403'
+      redirect_to root_path
     else
       if current_user.user_type_id == 3
         redirect_to '/403'
@@ -14,7 +14,7 @@ class GradesController < ApplicationController
   def create
     @grade = Grade.new(grade_params)
     unless @grade.save
-      flash[:error] = "Błąd"
+      flash[:error] = "Błąd dodawania oceny"
     end
     redirect_back fallback_location: root_path
   end

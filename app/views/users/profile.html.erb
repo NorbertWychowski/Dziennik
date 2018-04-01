@@ -14,6 +14,65 @@
           <li class="list-group-item">Telefon: <b><%= @user.phone %></b></li>
         </ul>
       </div>
+      <% if current_user.user_type_id == 1 %>
+        <% if @user.user_type_id == 3 %>
+          <div class="float-left alert alert-dark table-responsive" style="margin-top: 26px">
+            <p class="float-left">Klasa: <b><%= Student.find_by(user_id: @user).group.groupName %></b></p>
+            <p class="float-right">
+              <kbd class="badge badge-dark">
+                <%= link_to "Zmień klasę", {controller: :students, action: :change_group, id: @user},
+                            {remote: true, class: 'modal-action'} %>
+              </kbd>
+            </p>
+          </div>
+          <div class="modal fade" id="change_group" tabindex="-1" role="dialog" aria-labelledby="changeClassLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content"></div>
+            </div>
+          </div>
+        <% else %>
+          <div class="table-responsive" style="margin-top: 26px">
+            <h5 class="font-weight-light float-left">Zajęcia</h5>
+            <h5 class="font-weight-light float-right">
+              <%= link_to "Przydziel nowe zajęcia", {controller: :teacher_group_subjects, action: :add_lesson, id: @user.id},
+                          {remote: true, class: 'modal-action badge badge-dark'} %>
+            </h5>
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">Przedmiot</th>
+                <th scope="col">Klasa</th>
+                <th scope="col">Akcja</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% TeacherGroupSubject.where(user_id: @user).all.each do |s| %>
+                <tr>
+                  <td><%= s.subject.subjectName %></td>
+                  <td><%= s.group.groupName %></td>
+                  <td>
+                    <kbd class="badge badge-dark">
+                      <%= link_to "Usuń przydział", {controller: :teacher_group_subjects, action: :delete_lesson, id: s.id},
+                                  {remote: true, class: 'modal-action'} %>
+                    </kbd>
+                  </td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal fade" id="delete_lesson" tabindex="-1" role="dialog" aria-labelledby="deleteLessonLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content"></div>
+            </div>
+          </div>
+          <div class="modal fade" id="add_lesson" tabindex="-1" role="dialog" aria-labelledby="addLessonLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content"></div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>

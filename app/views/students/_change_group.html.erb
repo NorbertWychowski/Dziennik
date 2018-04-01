@@ -1,0 +1,19 @@
+<%= form_for @student, method: :put do |f| %>
+  <div class="modal-header">
+    <h5 class="modal-title" id="changeClassLabel">Przenieś ucznia</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <%= f.label "Wybierz klasę", class: 'classSelect' %>
+      <%= f.select(:group_id, Group.where.not(id: @student.group).all.map {|group| [group.groupName, group.id]}, {},
+                   class: 'form-control', id: 'classSelect') %>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cofnij</button>
+    <%= f.submit(value: "Przenieś ucznia", class: 'btn btn-primary', 'data-disable-with': "Przenoszę...", method: :post) %>
+  </div>
+<% end %>

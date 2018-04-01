@@ -3,7 +3,11 @@ class NotesController < ApplicationController
 
   private def requires_permission
     if current_user.nil?
-      redirect_to login_path
+      redirect_to root_path
+    else
+      if current_user.user_type_id == 3
+        redirect_to '/403'
+      end
     end
   end
 

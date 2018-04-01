@@ -21,7 +21,7 @@
               <ul class="grade-list">
                 <li class="grade-list"><kbd class="badge">
                   <%= link_to "Zobacz podsumowanie zajęć",
-                              {action: "user_groups", controller: "users", id: @user, teacher_group_subject: g},
+                              {action: :user_groups, controller: :users, id: @user, teacher_group_subject: g},
                               class: 'modal-action' %>
                 </kbd>
               </ul>
