@@ -18,6 +18,7 @@
 /* Main */
 body {
     background: #eee url("background.jpg") no-repeat fixed top;
+    background-size: cover;
 }
 
 /* Navbar */
