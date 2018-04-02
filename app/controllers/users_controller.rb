@@ -63,7 +63,7 @@ class UsersController < ApplicationController
     end
     @group = TeacherGroupSubject.find(params[:teacher_group_subject])
     @subject = @group.subject
-    @students = Student.joins(:group).joins(:user).select("*").where(group: @group)
+    @students = Student.joins(:group).joins(:user).select("students.*, users.firstName, users.lastName").where(group: @group)
   end
 
   private def user_params

@@ -15,7 +15,7 @@ class StudentsController < ApplicationController
     unless @student = Student.where(user_id: params[:id]).first
       redirect_to '/err/404'
     end
-    @subjects = TeacherGroupSubject.joins(:subject).where(group_id: @student.group_id).select("*")
+    @subjects = TeacherGroupSubject.joins(:subject).where(group_id: @student.group_id).select("*").group(:subject_id)
   end
 
   def show_notes

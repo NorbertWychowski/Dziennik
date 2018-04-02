@@ -34,7 +34,7 @@
               <ul class="grade-list">
                 <% student.grades.where(subject: @subject).all.each do |g| %>
                   <li class="grade-list">
-                      <span data-toggle="tooltip" data-placement="top" title=<%= g.student_id %>>
+                      <span data-toggle="tooltip" data-placement="top" title=<%= g.info %>>
                         <%= label_tag 'grade', g.grade, class: 'badge grade grade-' + g.grade.chars.last %>
                       </span>
                   </li>

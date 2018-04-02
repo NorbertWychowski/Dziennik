@@ -40,7 +40,9 @@
                 </ul>
               <% end %>
             </td>
-            <td><span class="badge badge-secondary"><%= (avg / i).round(2) %></span></td>
+            <td>
+              <span class="badge badge-secondary"><%= (avg / i).round(2).nan? ? "Brak ocen" : (avg / i).round(2) %></span>
+            </td>
           </tr>
         <% end %>
         </tbody>
