@@ -64,7 +64,7 @@ class UsersController < ApplicationController
     @group = TeacherGroupSubject.find(params[:teacher_group_subject])
     @subject = @group.subject
     @students = Student.joins(:group).joins(:user).select("students.*, users.first_name, users.last_name")
-                    .where(group: @group).order(:nr)
+                    .where(group: @group.group).order(:nr)
   end
 
   private def user_params
