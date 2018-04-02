@@ -25,7 +25,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.joins("LEFT JOIN teacher_group_subjects t ON users.id = t.user_id").select("users.*, COUNT(t.id) as s_count").group(:user_id)
+    @users = User.joins("LEFT JOIN teacher_group_subjects t ON users.id = t.user_id").select("users.*, COUNT(t.id) as s_count").group("user_id")
   end
 
   def create
