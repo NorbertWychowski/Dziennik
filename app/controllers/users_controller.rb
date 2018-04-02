@@ -40,6 +40,9 @@ class UsersController < ApplicationController
   end
 
   def new
+    unless current_user.user_type_id == 3
+      redirect_to '/err/403'
+    end
     @user = User.new
     @user.students.build
   end
