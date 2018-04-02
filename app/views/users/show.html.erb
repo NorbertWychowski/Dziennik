@@ -13,15 +13,15 @@
         </tr>
         </thead>
         <tbody>
-        <% TeacherGroupSubject.all.where(user: @user).each do |g| %>
+        <% @subjects.each do |s| %>
           <tr>
-            <td><%= g.group.groupName %></td>
-            <td><%= g.subject.subjectName %></td>
+            <td><%= s.groupName %></td>
+            <td><%= s.subjectName %></td>
             <td>
               <ul class="grade-list">
                 <li class="grade-list"><kbd class="badge">
                   <%= link_to "Zobacz podsumowanie zajęć",
-                              {action: :user_groups, controller: :users, id: @user, teacher_group_subject: g},
+                              {action: :user_groups, controller: :users, id: @user, teacher_group_subject: s},
                               class: 'modal-action' %>
                 </kbd>
               </ul>

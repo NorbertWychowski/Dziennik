@@ -1,3 +1,11 @@
+<script>
+    function showGroup(userID) {
+        if (userID.value == 3)
+            $('#user-type').show(300);
+        else
+            $('#user-type').hide(300);
+    };
+</script>
 <%= form_for @user do |f| %>
   <div class="container-fluid">
     <div class="container container-radius container-shadow container-padding-small bg-light">
@@ -28,9 +36,11 @@
             <%= f.label :phone, "Numer telefonu" %>
             <%= f.phone_field(:phone, {class: 'form-control', id: 'phone', placeholder: '+48', required: ''}) %>
             <%= f.label :user_type_id, "Wybierz typ użytkownika" %>
-            <%= f.select(:user_type_id, UserType.where.not(id: 1).all.map {|user_type| [user_type.userType, user_type.id]}, {},
+            <%= f.select(:user_type_id, UserType.where.not(id: 1).all.map {|user_type| [user_type.userType, user_type.id]},
+                         {selected: params[:user_type]},
                          {class: 'form-control', id: 'accountType', onchange: 'showGroup(this)'}) %>
-            <div id="user-type" style="display: none;">
+            <% dis = (params[:user_type].to_i == 3 ? "display:inherit" : "display:none") %>
+            <div id="user-type" style=<%= dis %>>
               <%= f.fields_for :students do |student_f| %>
                 <%= student_f.label :group_id, "Wybierz klasę" %>
                 <%= student_f.select(:group_id, Group.all.map {|group| [group.groupName, group.id]}, {},
@@ -40,7 +50,8 @@
           </div>
         </form>
       </div>
-      <div class="container content-container">
+      <div class=" container content-container
+            ">
         <%= f.submit(value: "Dodaj nowego użytkownika", class: 'btn btn-primary',
                      'data-disable-with': "Dodaję użytkownika...", method: :post) %>
       </div>

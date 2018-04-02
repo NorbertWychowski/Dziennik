@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get 'student/:id/notes', to: 'students#show_notes', as: 'student_notes'
   get 'student/:id/grades', to: 'students#show_grades', as: 'student_grades'
   get 'student/change_group', to: 'students#change_group'
+  get 'student/delete_student', to: 'students#delete_student'
   resources :students
 
   #sesja
@@ -32,7 +33,7 @@ Rails.application.routes.draw do
   get 'grade/edit_grades', to: 'grades#edit_grades'
 
   #uwagi
-  resource :notes
+  resources :notes
   get 'note/add_note', to: 'notes#add_note'
   get 'note/delete_note', to: 'notes#delete_note'
 

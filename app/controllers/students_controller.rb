@@ -7,24 +7,36 @@ class StudentsController < ApplicationController
     end
   end
 
+  def index
+    @students = Student.joins(:user).joins(:group).select("*")
+  end
+
   def show_grades
-    @student = Student.find_by(user: params[:id])
-    @subjects = TeacherGroupSubject.all.where(group: @student.group)
+    unless @student = Student.where(user_id: params[:id]).first
+      redirect_to '/err/404'
+    end
+    @subjects = TeacherGroupSubject.joins(:subject).where(group_id: @student.group_id).select("*")
   end
 
   def show_notes
-    @student = Student.find_by(user: params[:id])
-    @notes = Note.all.where(student: @student.id)
+    unless @student_id = Student.where(user_id: params[:id]).first
+      redirect_to '/err/404'
+    end
+    @notes = Note.joins(:user).select("*").where(student_id: @student_id.id)
   end
 
   def show
-    @student = Student.find_by(user: params[:id])
-    @subjects = TeacherGroupSubject.all.where(group: @student.group)
-    @notes = Note.all.where(student: @student.id)
+    unless @student = Student.where(user_id: params[:id]).first
+      redirect_to '/err/404'
+    end
+    @subjects = TeacherGroupSubject.where(group_id: @student.group_id)
+    @notes = Note.joins(:user).where(student_id: @student.id).select("*")
   end
 
   def change_group
-    @student = Student.find_by(user_id: params[:id])
+    unless @student = Student.where(user_id: params[:id]).first
+      redirect_to '/err/404'
+    end
     respond_to do |format|
       format.html
       format.js
@@ -33,11 +45,30 @@ class StudentsController < ApplicationController
   end
 
   def update
-    Student.find(params[:id]).update(student_params)
+    unless @student = Student.where(id: params[:id]).first
+      redirect_to '/err/404'
+    end
+    @student.update(student_params)
     redirect_back fallback_location: root_path
   end
 
+  def delete_student
+    respond_to do |format|
+      format.html
+      format.js
+      format.json
+    end
+  end
+
   def destroy
+    unless @student = Student.where(id: params[:id]).first
+      redirect_to '/err/404'
+    end
+    Grade.where(student: @student).destroy_all
+    Note.where(student: @student).destroy_all
+    @student.destroy
+    User.destroy(params[:id])
+    redirect_back fallback_location: root_path
   end
 
   private def student_params

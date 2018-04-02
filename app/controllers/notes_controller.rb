@@ -28,6 +28,11 @@ class NotesController < ApplicationController
   end
 
   def delete_note
+    respond_to do |format|
+      format.html
+      format.json
+      format.js
+    end
   end
 
   def destroy

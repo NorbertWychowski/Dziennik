@@ -8,7 +8,7 @@ class GroupsController < ApplicationController
   end
 
   def index
-    @groups = Group.all
+    @groups = Group.joins(:students).select("groups.*, count(students.id) as s_count").group("groups.id")
   end
 
   def create
@@ -28,7 +28,9 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @group = Group.find(params[:id])
+    unless @group = Group.where(id: params[:id]).first
+      redirect_to '/err/404'
+    end
   end
 
   private def group_params

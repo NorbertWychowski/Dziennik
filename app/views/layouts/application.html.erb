@@ -42,7 +42,7 @@
             <%= link_to "Klasy", groups_path, class: 'nav-link' + current_class?(groups_path) %>
             <%= link_to "Przedmioty", subjects_path, class: 'nav-link' + current_class?(subjects_path) %>
             <%= link_to "Nauczyciele", users_path, class: 'nav-link' + current_class?(users_path) %>
-            <a class="nav-link" href="admin-uczniowie.html">Uczniowie</a>
+            <%= link_to "Uczniowie", students_path, class: 'nav-link' + current_class?(students_path) %>
             <%= link_to "Dodaj użytkownika", new_user_path, class: 'nav-link' + current_class?(new_user_path) %>
           <% when 2 %>
             <%= link_to "Lista zajęć", user_url(current_user), class: 'nav-link' + current_class?(user_url(current_user)) %>

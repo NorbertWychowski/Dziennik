@@ -17,14 +17,14 @@
         <% @notes.each do |note| %>
           <tr>
             <td><%= note.obtained_date %></td>
-            <td><%= note.user.firstName + " " + note.user.lastName %></td>
+            <td><%= note.firstName + " " + note.lastName %></td>
             <% case note.note_type.id %>
             <% when 1 %>
-              <td><span class="badge badge-danger">Negatywna</span></td>
+              <td><span class="badge badge-success">Pozytywna</span></td>
             <% when 2 %>
               <td><span class="badge badge-warning">Neutralna</span></td>
             <% when 3 %>
-              <td><span class="badge badge-success">Pozytywna</span></td>
+              <td><span class="badge badge-danger">Negatywna</span></td>
             <% end %>
             <td><%= note.description %></td>
           </tr>

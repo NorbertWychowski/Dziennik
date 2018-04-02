@@ -5,22 +5,27 @@ class UsersController < ApplicationController
     if current_user.nil?
       redirect_to root_path
     else
-      unless params[:id].to_i == current_user.id or current_user.user_type_id == 1
+      unless params[:id].to_i == current_user.id or current_user.user_type_id != 3
         redirect_to '/err/403'
       end
     end
   end
 
   def profile
-    @user = User.find(params[:id])
+    unless @user = User.where(id: params[:id]).first
+      redirect_to '/err/404'
+    end
   end
 
   def show
-    @user = User.find(params[:id])
+    unless @user = User.where(id: params[:id]).first
+      redirect_to '/err/404'
+    end
+    @subjects = TeacherGroupSubject.joins(:subject).joins(:group).where(user_id: params[:id]).select("*")
   end
 
   def index
-    @users = User.where.not(user_type_id: 3).all
+    @users = User.joins("LEFT JOIN teacher_group_subjects t ON users.id = t.user_id").select("users.*, COUNT(t.id) as s_count").group(:user_id)
   end
 
   def create
@@ -45,8 +50,12 @@ class UsersController < ApplicationController
   end
 
   def user_groups
-    @user = User.find(params[:id])
-    @teacher_group_subject = TeacherGroupSubject.find(params[:teacher_group_subject])
+    unless @user = User.where(id: params[:id]).first
+      redirect_to '/err/404'
+    end
+    @group = TeacherGroupSubject.find(params[:teacher_group_subject])
+    @subject = @group.subject
+    @students = Student.joins(:group).joins(:user).select("students.*, users.firstName, users.lastName").where(group: @group)
   end
 
   private def user_params

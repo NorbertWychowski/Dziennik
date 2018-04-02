@@ -1,0 +1,49 @@
+<div class="container-fluid">
+  <div class="container container-radius container-shadow container-padding-small bg-light">
+    <h2 class="float-left font-weight-light" style="margin-bottom: 26px">Lista uczniów</h2>
+    <%= link_to "Dodaj nowego ucznia", new_user_path(user_type: 3), {class: 'float-right btn btn-dark', user_type: 3} %>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Imię</th>
+          <th scope="col">Nazwisko</th>
+          <th scope="col">Klasa</th>
+          <th scope="col">Akcja</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @students.each do |student| %>
+          <tr>
+            <td><%= student.firstName %></td>
+            <td><%= student.lastName %></td>
+            <td><%= student.groupName %></td>
+            <td>
+              <ul class="grade-list">
+                <li class="grade-list">
+                  <kbd class="badge badge-dark">
+                    <%= link_to "Edytuj ucznia", user_profile_url(student.user_id), class: 'modal-action' %>
+                  </kbd>
+                </li>
+                <% if current_user.user_type_id == 1 %>
+                  <li class="grade-list">
+                    <kbd class="badge badge-dark">
+                      <%= link_to "Usuń ucznia", {controller: :students, action: :delete_student, id: student.user_id},
+                                  {remote: true, class: 'modal-action'} %>
+                    </kbd>
+                  </li>
+                  <div class="modal fade" id="delete_student" tabindex="-1" role="dialog" aria-labelledby="deleteStudentLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content"></div>
+                    </div>
+                  </div>
+                <% end %>
+              </ul>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

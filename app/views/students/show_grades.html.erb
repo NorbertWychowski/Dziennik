@@ -22,11 +22,11 @@
           <% avg = 0.0 %>
           <% i = 0.0 %>
           <tr>
-            <td scope="row"><%= s.subject.subjectName %></td>
+            <td scope="row"><%= s.subjectName %></td>
             <td>
               <% @student.grades.where(subject: s.subject).each do |g| %>
                 <ul class="grade-list">
-                  <li class="grade-list"><span data-toggle="tooltip" data-placement="top" title=<%= g.info %>>
+                  <li class="grade-list"><span data-toggle="tooltip" data-placement="top" title=<%= s.subject_id %>>
                       <%= label_tag 'grade', g.grade, class: 'badge grade grade-' + g.grade.chars.last %></span>
                   </li>
                   <% avg += Grade.grade_values(g.grade) %>

@@ -3,13 +3,13 @@
         $('[data-toggle="tooltip"]').tooltip()
     });
 </script>
-<% content_for :title, @teacher_group_subject.subject.subjectName + " - " + @teacher_group_subject.group.groupName %>
+<% content_for :title, @subject.subjectName + " - " + @group.group.groupName %>
 <div class="container-fluid">
   <div class="container container-radius container-shadow container-padding-small bg-light">
     <h4 class="float-left font-weight-light" style="margin-bottom: 26px">Przedmiot:
-      <kbd class="badge-dark"><%= @teacher_group_subject.subject.subjectName %></kbd></h4>
+      <kbd class="badge-dark"><%= @subject.subjectName %></kbd></h4>
     <h4 class="float-right font-weight-light">Klasa:
-      <kbd class="badge-dark"><%= @teacher_group_subject.group.groupName %></kbd></h4>
+      <kbd class="badge-dark"><%= @group.group.groupName %></kbd></h4>
     <div class="table-responsive">
       <table class="table">
         <thead>
@@ -23,18 +23,18 @@
         </tr>
         </thead>
         <tbody>
-        <% @teacher_group_subject.group.students.all.each do |student| %>
+        <% @students.each do |student| %>
           <% avg = 0.0 %>
           <% i = 0 %>
           <tr>
             <td><kbd class="badge"><%= student.id %></kbd></td>
-            <td scope="row"><%= student.user.firstName %></td>
-            <td scope="row"><%= student.user.lastName %></td>
+            <td scope="row"><%= student.firstName %></td>
+            <td scope="row"><%= student.lastName %></td>
             <td>
               <ul class="grade-list">
-                <% student.grades.where(subject: @teacher_group_subject.subject).order(:id).all.each do |g| %>
+                <% student.grades.where(subject: @subject).all.each do |g| %>
                   <li class="grade-list">
-                      <span data-toggle="tooltip" data-placement="top" title=<%= g.info %>>
+                      <span data-toggle="tooltip" data-placement="top" title=<%= g.student_id %>>
                         <%= label_tag 'grade', g.grade, class: 'badge grade grade-' + g.grade.chars.last %>
                       </span>
                   </li>
@@ -51,14 +51,14 @@
                 <li class="grade-list">
                   <kbd class="badge badge-dark">
                     <%= link_to "Dodaj ocenę", {controller: :grades, action: :add_grade,
-                                                student_id: student.id, subject_id: @teacher_group_subject.subject.id},
+                                                student_id: student.id, subject_id: @subject.id},
                                 {remote: true, class: 'modal-action'} %>
                   </kbd>
                 </li>
                 <li class="grade-list">
                   <kbd class="badge badge-dark">
                     <%= link_to "Edytuj oceny", {controller: :grades, action: :edit_grades,
-                                                 student_id: student.id, subject_id: @teacher_group_subject.subject.id},
+                                                 student_id: student.id, subject_id: @subject.id},
                                 {class: 'modal-action', method: :get} %>
                   </kbd>
                 </li>
