@@ -31,7 +31,7 @@ class GroupsController < ApplicationController
     unless @group = Group.where(id: params[:id]).first
       redirect_to '/err/404'
     end
-    @students = Student.joins(:user).select("*").where(group_id: params[:id])
+    @students = Student.joins(:user).select("*").where(group_id: params[:id]).order(:nr)
   end
 
   private def group_params

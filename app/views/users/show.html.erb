@@ -15,13 +15,13 @@
         <tbody>
         <% @subjects.each do |s| %>
           <tr>
-            <td><%= s.groupName %></td>
-            <td><%= s.subjectName %></td>
+            <td><%= s.group.groupName %></td>
+            <td><%= s.subject.subjectName %></td>
             <td>
               <ul class="grade-list">
                 <li class="grade-list"><kbd class="badge">
                   <%= link_to "Zobacz podsumowanie zajęć",
-                              {action: :user_groups, controller: :users, id: @user, teacher_group_subject: s},
+                              {action: :user_groups, controller: :users, id: @user, teacher_group_subject: s.id},
                               class: 'modal-action' %>
                 </kbd>
               </ul>

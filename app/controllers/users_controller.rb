@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     unless @user = User.where(id: params[:id]).first
       redirect_to '/err/404'
     end
-    @subjects = TeacherGroupSubject.joins(:subject).joins(:group).where(user_id: params[:id]).select("*")
+    @subjects = TeacherGroupSubject.where(user_id: params[:id])
   end
 
   def index
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
     @group = TeacherGroupSubject.find(params[:teacher_group_subject])
     @subject = @group.subject
     @students = Student.joins(:group).joins(:user).select("students.*, users.first_name, users.last_name")
-                    .where(group: @group)
+                    .where(group: @group).order(:nr)
   end
 
   private def user_params
