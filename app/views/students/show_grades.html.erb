@@ -26,7 +26,8 @@
             <td>
               <% @student.grades.where(subject: s.subject).each do |g| %>
                 <ul class="grade-list">
-                  <li class="grade-list"><span data-toggle="tooltip" data-placement="top" title=<%= s.subject_id %>>
+                  <li class="grade-list"><span data-toggle="tooltip" data-placement="top"
+                                               title='<%= g.info.to_s %> <%= g.obtained_date.to_s %>'>
                       <%= label_tag 'grade', g.grade, class: 'badge grade grade-' + g.grade.chars.last %></span>
                   </li>
                   <% avg += Grade.grade_values(g.grade) %>
