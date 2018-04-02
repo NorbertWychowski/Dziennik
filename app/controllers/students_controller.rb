@@ -29,7 +29,7 @@ class StudentsController < ApplicationController
     unless @student = Student.where(user_id: params[:id]).first
       redirect_to '/err/404'
     end
-    @subjects = TeacherGroupSubject.where(group_id: @student.group_id)
+    @subjects = TeacherGroupSubject.joins(:subject).where(group_id: @student.group_id).select("*").uniq
     @notes = Note.joins(:user).where(student_id: @student.id).select("*")
   end
 
