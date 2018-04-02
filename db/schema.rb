@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20180329113759) do
   end
 
   create_table "students", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "nr"
     t.bigint "user_id"
     t.bigint "group_id"
     t.index ["group_id"], name: "index_students_on_group_id"

@@ -48,6 +48,8 @@ class StudentsController < ApplicationController
     unless @student = Student.where(id: params[:id]).first
       redirect_to '/err/404'
     end
+    @maxNR = Student.where(group_id: @student.group_id).max("nr") + 1
+    @student.nr = @maxNR.to_i
     @student.update(student_params)
     redirect_back fallback_location: root_path
   end
@@ -61,9 +63,7 @@ class StudentsController < ApplicationController
   end
 
   def destroy
-    unless @student = Student.where(id: params[:id]).first
-      redirect_to '/err/404'
-    end
+    @student = Student.where(user_id: params[:id]).first
     Grade.where(student: @student).destroy_all
     Note.where(student: @student).destroy_all
     @student.destroy
@@ -72,7 +72,7 @@ class StudentsController < ApplicationController
   end
 
   private def student_params
-    params.require(:student).permit(:firstName, :lastName, :phone, :email, :login, :password, :group_id)
+    params.require(:student).permit(:login, :password, :group_id)
   end
 end
 

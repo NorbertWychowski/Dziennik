@@ -4,17 +4,20 @@
     <h2 class="float-left font-weight-light" style="margin-bottom: 26px">Klasa <kbd><%= @group.groupName %></kbd></h2>
     <div class="table-responsive" style="margin-top: 26px">
       <h5 class="font-weight-light float-left">Lista uczniów</h5>
+      <%=  %>
       <table class="table">
         <thead>
         <tr>
+          <th scope="col">Numer</th>
           <th scope="col">Imię</th>
           <th scope="col">Nazwisko</th>
           <th scope="col">Akcja</th>
         </tr>
         </thead>
         <tbody>
-        <% @group.students.each do |student| %>
+        <% @students.each do |student| %>
           <tr>
+            <td><kbd class="badge"><%= student.nr %></kbd></td>
             <td><%= student.user.firstName %></td>
             <td><%= student.user.lastName %></td>
             <td>

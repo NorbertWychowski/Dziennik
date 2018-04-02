@@ -6,7 +6,7 @@
             $('#user-type').hide(300);
     };
 </script>
-<%= form_for @user do |f| %>
+<%= form_for User.new do |f| %>
   <div class="container-fluid">
     <div class="container container-radius container-shadow container-padding-small bg-light">
       <h2 class="float-left font-weight-light" style="margin-bottom: 26px">Dodaj użytkownika</h2>
@@ -41,7 +41,7 @@
                          {class: 'form-control', id: 'accountType', onchange: 'showGroup(this)'}) %>
             <% dis = (params[:user_type].to_i == 3 ? "display:inherit" : "display:none") %>
             <div id="user-type" style=<%= dis %>>
-              <%= f.fields_for :students do |student_f| %>
+              <%= f.fields_for :students_attributes do |student_f| %>
                 <%= student_f.label :group_id, "Wybierz klasę" %>
                 <%= student_f.select(:group_id, Group.all.map {|group| [group.groupName, group.id]}, {},
                                      {class: 'form-control', id: 'groupType'}) %>
