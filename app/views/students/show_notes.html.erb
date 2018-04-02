@@ -17,7 +17,7 @@
         <% @notes.each do |note| %>
           <tr>
             <td><%= note.obtained_date %></td>
-            <td><%= note.firstName + " " + note.lastName %></td>
+            <td><%= note.first_name + " " + note.last_name %></td>
             <% case note.note_type.id %>
             <% when 1 %>
               <td><span class="badge badge-success">Pozytywna</span></td>

@@ -3,11 +3,11 @@
         $('[data-toggle="tooltip"]').tooltip()
     })
 </script>
-<% content_for :title, "Profil ucznia - " + @student.user.firstName + " " + @student.user.lastName %>
+<% content_for :title, "Profil ucznia - " + @student.user.first_name + " " + @student.user.last_name %>
 <div class="container-fluid">
   <div class="container container-radius container-shadow container-padding-small bg-light">
     <h4 class="float-left font-weight-light" style="margin-bottom: 26px">Uczeń:
-      <kbd class="badge-dark"><%= @student.user.firstName + " " + @student.user.lastName %></kbd>
+      <kbd class="badge-dark"><%= @student.user.first_name + " " + @student.user.last_name %></kbd>
     </h4>
     <h4 class="float-right font-weight-light">Klasa:
       <kbd class="badge-dark"><%= @student.group.groupName %></kbd>
@@ -73,7 +73,7 @@
           <% @notes.each do |note| %>
             <tr>
               <td><%= note.obtained_date %></td>
-              <td><%= note.user.firstName + " " + note.user.lastName %></td>
+              <td><%= note.user.first_name + " " + note.user.last_name %></td>
               <% case note.note_type.id %>
               <% when 1 %>
                 <td><span class="badge badge-success">Pozytywna</span></td>

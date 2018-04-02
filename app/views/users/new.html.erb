@@ -15,10 +15,10 @@
         <h5 class="font-weight-light">Uzupełnij wszystkie dane</h5>
         <form>
           <div class="float-left col-4 form-group">
-            <%= f.label :firstName, "Imię" %>
-            <%= f.text_field(:firstName, {class: 'form-control', id: 'name', placeholder: 'wpisz imię', required: ''}) %>
-            <%= f.label :lastName, "Nazwisko" %>
-            <%= f.text_field(:lastName, {class: 'form-control', id: 'surname', placeholder: 'wpisz nazwisko', required: ''}) %>
+            <%= f.label :first_name, "Imię" %>
+            <%= f.text_field(:first_name, {class: 'form-control', id: 'name', placeholder: 'wpisz imię', required: ''}) %>
+            <%= f.label :last_name, "Nazwisko" %>
+            <%= f.text_field(:last_name, {class: 'form-control', id: 'surname', placeholder: 'wpisz nazwisko', required: ''}) %>
             <%= f.label :address, "Adres zamieszkania" %>
             <%= f.text_field(:address, {class: 'form-control', id: 'address', placeholder: 'wpisz adres zamieszkania', required: ''}) %>
           </div>

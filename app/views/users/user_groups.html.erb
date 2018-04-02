@@ -28,8 +28,8 @@
           <% i = 0 %>
           <tr>
             <td><kbd class="badge"><%= student.nr %></kbd></td>
-            <td scope="row"><%= student.firstName %></td>
-            <td scope="row"><%= student.lastName %></td>
+            <td scope="row"><%= student.first_name %></td>
+            <td scope="row"><%= student.last_name %></td>
             <td>
               <ul class="grade-list">
                 <% student.grades.where(subject: @subject).all.each do |g| %>

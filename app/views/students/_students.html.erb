@@ -1,6 +1,6 @@
 <h3>Uczniowie</h3>
 <% @group.students.each do |student| %>
   <div class="well">
-    <p><strong><%= link_to student.firstName + " " + student.lastName, student %></strong></p>
+    <p><strong><%= link_to student.first_name + " " + student.last_name, student %></strong></p>
   </div>
 <% end %>

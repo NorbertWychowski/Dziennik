@@ -19,16 +19,16 @@
           <tr>
             <td>
               <% if user.user_type_id == 1 %>
-                <kbd class="badge badge-warning"><%= user.firstName %></kbd>
+                <kbd class="badge badge-warning"><%= user.first_name %></kbd>
               <% else %>
-                <%= user.firstName %>
+                <%= user.first_name %>
               <% end %>
             </td>
             <td>
               <% if user.user_type_id == 1 %>
-                <kbd class="badge badge-warning"><%= user.lastName %></kbd>
+                <kbd class="badge badge-warning"><%= user.last_name %></kbd>
               <% else %>
-                <%= user.lastName %>
+                <%= user.last_name %>
               <% end %>
             </td>
             <td><%= user.s_count %></td>

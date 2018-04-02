@@ -18,8 +18,8 @@
         <% @students.each do |student| %>
           <tr>
             <td><kbd class="badge"><%= student.nr %></kbd></td>
-            <td><%= student.user.firstName %></td>
-            <td><%= student.user.lastName %></td>
+            <td><%= student.user.first_name %></td>
+            <td><%= student.user.last_name %></td>
             <td>
               <kbd class="badge badge-dark">
                 <% unless current_user.user_type_id == 3 %>

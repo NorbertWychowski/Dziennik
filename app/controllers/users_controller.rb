@@ -30,7 +30,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(firstName: user_params[:firstName], lastName: user_params[:lastName], phone: user_params[:phone],
+    @user = User.new(first_name: user_params[:first_name], last_name: user_params[:last_name], phone: user_params[:phone],
                      email: user_params[:email], login: user_params[:login], password_digest: user_params[:password_digest],
                      address: user_params[:address], birth_date: user_params[:birth_date],
                      user_type_id: user_params[:user_type_id])
@@ -63,12 +63,12 @@ class UsersController < ApplicationController
     end
     @group = TeacherGroupSubject.find(params[:teacher_group_subject])
     @subject = @group.subject
-    @students = Student.joins(:group).joins(:user).select("students.id, students.nr, students.user_id, users.firstName, users.lastName")
+    @students = Student.joins(:group).joins(:user).select("students.*, users.first_name, users.last_name")
                     .where(group: @group)
   end
 
   private def user_params
-    params.require(:user).permit(:firstName, :lastName, :phone, :email, :login, :password_digest,
+    params.require(:user).permit(:first_name, :last_name, :phone, :email, :login, :password_digest,
                                  :address, :birth_date, :user_type_id, students_attributes: [:group_id])
   end
 end
