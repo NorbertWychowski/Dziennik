@@ -48,8 +48,9 @@ class StudentsController < ApplicationController
     unless @student = Student.where(id: params[:id]).first
       redirect_to '/err/404'
     end
+
     if @student.group.id != student_params[:group_id]
-      @student.nr = Student.where(group_id: @student.group_id).maximum("nr") + 1
+      @student.nr = Student.where(group_id: student_params[:group_id]).maximum("nr").to_i + 1
     end
     @student.update(student_params)
     redirect_back fallback_location: root_path

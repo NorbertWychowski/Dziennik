@@ -56,8 +56,9 @@
                     {remote: true, class: 'modal-action badge badge-dark'} %>
       </h5>
       <% if @notes.empty? %>
-        <br><br>
-        <h2 class="float-center font-weight-light" style="margin-bottom: 26px; text-align: center;">Brak uwag</h2>
+        <div class="container">
+          <h1 align="center" class="font-weight-light">Nie ma żadnych uwag</h1>
+        </div>
       <% else %>
         <table class="table">
           <thead>
