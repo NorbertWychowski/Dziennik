@@ -30,7 +30,7 @@ class StudentsController < ApplicationController
       redirect_to '/err/404'
     end
     @subjects = TeacherGroupSubject.joins(:subject).where(group_id: @student.group_id).select("*").uniq
-    @notes = Note.joins(:user).where(student_id: @student.id).select("*")
+    @notes = Note.joins(:user).where(student_id: @student.id).select("notes.*")
   end
 
   def change_group

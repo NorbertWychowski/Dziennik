@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   match '/err/403', to: 'errors#forbidden', via: :all
   match '/err/404', to: 'errors#not_found', via: :all
   match '/err/500', to: 'errors#internal_server_error', via: :all
+  get '*path' => redirect('/err/404')
 
   #klasy
   get 'group/add_group', to: 'groups#add_group'
