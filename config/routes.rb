@@ -37,12 +37,6 @@ Rails.application.routes.draw do
   get 'note/add_note', to: 'notes#add_note'
   get 'note/delete_note', to: 'notes#delete_note'
 
-  #kody bledu
-  match '/err/403', to: 'errors#forbidden', via: :all
-  match '/err/404', to: 'errors#not_found', via: :all
-  match '/err/500', to: 'errors#internal_server_error', via: :all
-  get '*path' => redirect('/err/404')
-
   #klasy
   get 'group/add_group', to: 'groups#add_group'
   resources :groups
@@ -56,6 +50,12 @@ Rails.application.routes.draw do
   get 'lesson/add_lesson', to: 'teacher_group_subjects#add_lesson'
   get 'lesson/delete_lesson', to: 'teacher_group_subjects#delete_lesson'
   resources :teacher_group_subjects
+
+  #kody bledu
+  match '/err/403', to: 'errors#forbidden', via: :all
+  match '/err/404', to: 'errors#not_found', via: :all
+  match '/err/500', to: 'errors#internal_server_error', via: :all
+  get '*path' => redirect('/err/404')
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
