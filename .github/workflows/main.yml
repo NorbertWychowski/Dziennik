@@ -16,6 +16,7 @@ jobs:
         env:
           MYSQL_USER: hr
           MYSQL_PASSWORD: hr
+          MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: Dziennik_development
         ports: 
           - 3306
