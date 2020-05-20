@@ -17,7 +17,6 @@ jobs:
           MYSQL_USER: hr
           MYSQL_PASSWORD: hr
           MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: Dziennik_development
         ports: 
           - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
@@ -30,10 +29,12 @@ jobs:
       with:
         ruby-version: head
   
-    - name: Build
+    - name: Install Dependencies
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 3
-        bundle exec rails db:prepare
-        bundle exec rails test
-        
+        yarn install
+    - name: Setup Database
+      env:
+        RAILS_ENV: test
+      run: rake db:create db:migrate
